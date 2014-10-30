@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\FlowStepViewModel.cs" />
+    <Compile Include="ViewModel\StepAnswerViewModel.cs" />
+    <Compile Include="ViewModel\StepGroupViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +116,16 @@
       <Project>{fea9df74-6845-488a-bdcb-d18de7d3e363}</Project>
       <Name>FlexyDomain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Abort-48x48.png" />
+    <Resource Include="Icons\Accept-48x48.png" />
+    <Resource Include="Icons\QuestionMark-64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Abort-32x32.png" />
+    <Resource Include="Icons\Accept-32x32.png" />
+    <Resource Include="Icons\QuestionMark-32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
