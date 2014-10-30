@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlexyDomain.Controller
+namespace FlexyBox.ViewModel
 {
-    public class FlexyBoxController
+    public class StepGroupViewModel
     {
-        public FlexyBoxController()
-        {
-
-        }
+        public string Header {get; set;}
     }
 }

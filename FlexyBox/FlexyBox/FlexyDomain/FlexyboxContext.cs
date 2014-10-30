@@ -15,7 +15,7 @@ namespace FlexyDomain
             : base("ConnectionString")
         {
         }
-
+        //lavet af Søren Pedersen
         /// <summary>
         /// Get an IQueryable of the selected type
         /// </summary>
@@ -25,13 +25,22 @@ namespace FlexyDomain
         {
             if (!includeDeleted && typeof(T).IsSubclassOf(typeof(EntityPersist)))
             {
-                var toReturn = Set<T>();
-                var a = toReturn.Where("IsDeleted = @0", false);
-                return a;
+                return Set<T>().Where("IsDeleted = @0", false);
             }
             return Set<T>();
         }
 
+        //lavet af Søren Pedersen
+        public IQueryable<T> QueryFromID<T>(int Id) where T : class
+        {
+            if (typeof(T).IsSubclassOf(typeof(EntityPersist)))
+            {
+                return Set<T>().Where("Id = " + Id, false);
+            }
+            throw new NotSupportedException("QueryFromID must be called with T that inherits from EntityPersist");
+        }
+
+        //lavet af Søren Pedersen
         /// <summary>
         /// Deletes a IEnumerable list of entities
         /// </summary>
@@ -58,6 +67,7 @@ namespace FlexyDomain
             return false;
         }
 
+        //lavet af Søren Pedersen
         /// <summary>
         /// Deletes a single entity
         /// </summary>
@@ -80,6 +90,7 @@ namespace FlexyDomain
             return false;
         }
 
+        //lavet af Søren Pedersen
         /// <summary>
         /// Use to add a new entity or update an existing entity
         /// </summary>
@@ -103,6 +114,7 @@ namespace FlexyDomain
             return false;
         }
 
+        //lavet af Søren Pedersen
         /// <summary>
         /// Use to add a new collection of entities or update an existing (collection of) entity
         /// </summary>
@@ -129,6 +141,7 @@ namespace FlexyDomain
             return false;
         }
 
+        //lavet af Søren Pedersen
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var entitymethod = typeof(DbModelBuilder).GetMethod("Entity");

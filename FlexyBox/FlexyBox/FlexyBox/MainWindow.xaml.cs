@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FlexyDomain;
 using FlexyDomain.Models;
-using FlexyDomain.Controller;
 
 namespace FlexyBox
 {
@@ -23,39 +22,43 @@ namespace FlexyBox
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindowViewModel Model
+        {
+            get { return DataContext as MainWindowViewModel; }
+            set { DataContext = value; }
+        }
         public MainWindow()
         {
             InitializeComponent();
+            Model = new MainWindowViewModel();
             Loaded += MainWindow_Loaded;
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //StepQuestion question = new StepQuestion()
-            //{
-            //    DateCreated = DateTime.Now,
-            //    Description = "tralalal",
-            //    Header = "endnu mere tralalal",
-            //    Order = 0
-            //};
-            //StepAnswer answer = new StepAnswer()
-            //{
-            //    Comment = "ad",
-            //    EmployeeId = 1,
-            //    IsLog = false,
-            //    Question = question,
-            //    QuestionAnswer = Answer.Done,
-            //    TimeChanged = DateTime.Now
-            //};
-            using (var ctx = new FlexyboxContext())
-            {
-
-                var asd = ctx.Query<StepAnswer>(false);//.ToList();//.Where(x => x.IsDeleted != true).ToList();
-                var aasd = asd.ToList();
-            }
             
 
 
         }
+
+        private void Completed_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void NotCompleted_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void NotConsidered_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+    }
+
+    public class MainWindowViewModel
+    {
+
     }
 }
