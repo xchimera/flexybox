@@ -4,7 +4,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Border BorderThickness="1" Margin="10,0,0,0" BorderBrush="Black">
-        <TextBlock Name="loader">Henter fra db...</TextBlock>
+        <TextBlock Name="loader">Henter fra trakakakadb...</TextBlock>
         </Border>
         
     </Grid>
