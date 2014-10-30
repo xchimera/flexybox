@@ -4,13 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic;
 
 namespace FlexyDomain
 {
     public class FlexyboxContext : DbContext
     {
-        public FlexyboxContext() 
-            :base("ConnectionString")
+        public FlexyboxContext()
+            : base("ConnectionString")
         {
         }
 
@@ -21,17 +22,13 @@ namespace FlexyDomain
         /// <returns>IQueryable of T</returns>
         public IQueryable<T> Query<T>(bool includeDeleted) where T : class
         {
-            if(!includeDeleted)
-            {                
-                Type type = typeof(T);
-                if(type.GetType().IsAssignableFrom(typeof(EntityPersist)))
-                {
-                    var toReturn = Set<T>();
-                    var a = toReturn.Where(x => (x as EntityPersist).IsDeleted != true);
-                    return a;
-                }
+            if (!includeDeleted && typeof(T).IsSubclassOf(typeof(EntityPersist)))
+            {
+                var toReturn = Set<T>();
+                var a = toReturn.Where("IsDeleted = @0", false);
+                return a;
             }
-                return Set<T>();  
+            return Set<T>();
         }
 
         /// <summary>
@@ -70,7 +67,7 @@ namespace FlexyDomain
         {
             if (entity == null)
                 return false;
-            if(entity is EntityPersist)
+            if (entity is EntityPersist)
             {
                 Entry(entity).State = EntityState.Modified;
                 (entity as EntityPersist).IsDeleted = true;
@@ -131,11 +128,6 @@ namespace FlexyDomain
             return false;
         }
 
-
-
-
-
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var entitymethod = typeof(DbModelBuilder).GetMethod("Entity");
@@ -147,7 +139,7 @@ namespace FlexyDomain
                 {
                     entitymethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { });
                 }
-            }            
+            }
             base.OnModelCreating(modelBuilder);
         }
     }

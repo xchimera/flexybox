@@ -23,26 +23,37 @@ namespace FlexyBox
         public MainWindow()
         {
             InitializeComponent();
-            StepQuestion question = new StepQuestion() {
-                 DateCreated = DateTime.Now,
-                 Description = "tralalal",
-                 Header = "endnu mere tralalal",
-                 Order = 0
-            };
-            StepAnswer answer = new StepAnswer()
-            {
-                Comment = "ad",
-                EmployeeId = 1,
-                IsLog = false,
-                Question = question,
-                QuestionAnswer = Answer.Done,
-                TimeChanged = DateTime.Now
-            };
+            Loaded += MainWindow_Loaded;
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //StepQuestion question = new StepQuestion()
+            //{
+            //    DateCreated = DateTime.Now,
+            //    Description = "tralalal",
+            //    Header = "endnu mere tralalal",
+            //    Order = 0
+            //};
+            //StepAnswer answer = new StepAnswer()
+            //{
+            //    Comment = "ad",
+            //    EmployeeId = 1,
+            //    IsLog = false,
+            //    Question = question,
+            //    QuestionAnswer = Answer.Done,
+            //    TimeChanged = DateTime.Now
+            //};
             using (var ctx = new FlexyboxContext())
             {
 
-                var asd = ctx.Query<StepAnswer>(false).ToList();//.Where(x => x.IsDeleted != true).ToList();
+                var asd = ctx.Query<StepAnswer>(false);//.ToList();//.Where(x => x.IsDeleted != true).ToList();
+                var aasd = asd.ToList();
+                loader.Text = aasd.Count + " hentet";
             }
+            
+
+
         }
     }
 }
