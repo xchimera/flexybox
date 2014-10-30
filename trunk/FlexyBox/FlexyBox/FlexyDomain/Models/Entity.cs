@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlexyDomain
+namespace FlexyDomain.Models
 {
-    public class StepGroup : EntityPersist
+    public class EntityPersist
     {
-        public string Header { get; set; }
+        public int Id { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
