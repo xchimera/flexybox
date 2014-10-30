@@ -52,7 +52,6 @@ namespace FlexyBox
 
                 var asd = ctx.Query<StepAnswer>(false);//.ToList();//.Where(x => x.IsDeleted != true).ToList();
                 var aasd = asd.ToList();
-                loader.Text = aasd.Count + " hentet";
             }
             
 
