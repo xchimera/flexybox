@@ -4,7 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq.Dynamic;
+using FlexyDomain.Models;
+using FlexyDomain.Extensions;
 
 namespace FlexyDomain
 {
@@ -47,7 +48,7 @@ namespace FlexyDomain
                 if (entity.GetType().IsAssignableFrom(typeof(EntityPersist)))
                 {
                     Entry(entity).State = EntityState.Modified;
-                    (entity as IPersist).IsDeleted = true;
+                    (entity as EntityPersist).IsDeleted = true;
                 }
                 else
                     Entry(entity).State = EntityState.Deleted;

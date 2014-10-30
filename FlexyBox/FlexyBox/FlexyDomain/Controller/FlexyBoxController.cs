@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlexyDomain
+namespace FlexyDomain.Controller
 {
-    public interface IPersist
+    public class FlexyBoxController
     {
-        bool IsDeleted { get; set; }
+        public FlexyBoxController()
+        {
+
+        }
     }
 }
