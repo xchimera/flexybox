@@ -31,13 +31,8 @@
                 </RibbonGroup>    
             </RibbonTab>
         </Ribbon>
-        <TabControl Grid.Row="1" TabStripPlacement="Left">
-           
-            <TabItem Header="General">
-                <Label Content="Content goes here..." />
-            </TabItem>
-            <TabItem Header="Security" />
-            <TabItem Header="Details" />
+        <TabControl Grid.Row="1" ItemsSource="{Binding Groups}" TabStripPlacement="Left">
+         
         </TabControl>
     </Grid>
 </Window>
