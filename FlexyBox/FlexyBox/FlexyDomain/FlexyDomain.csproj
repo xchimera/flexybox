@@ -54,6 +54,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
     <Compile Include="IPersist.cs" />
+    <Compile Include="LinqDynamic.cs" />
     <Compile Include="Migrations\201410281039079_InitialCreate.cs" />
     <Compile Include="Migrations\201410281039079_InitialCreate.Designer.cs">
       <DependentUpon>201410281039079_InitialCreate.cs</DependentUpon>
