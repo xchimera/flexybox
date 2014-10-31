@@ -12,12 +12,12 @@ namespace FlexyDomain.Models
         public int EmployeeId { get; set; }
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
-        public Answer QuestionAnswer { get; set; }
+        public EnumAnswer QuestionAnswer { get; set; }
         public StepQuestion Question { get; set; }
         public bool IsDeleted { get; set; }
     }
 
-    public enum Answer
+    public enum EnumAnswer
     {
         Done = 0,
         NotDone = 1,

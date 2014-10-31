@@ -9,5 +9,6 @@ namespace FlexyDomain.Models
     public class StepGroup : EntityPersist
     {
         public string Header { get; set; }
+        public IList<StepQuestion> Questions { get; set; }
     }
 }

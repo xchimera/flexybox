@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Migrations\201410310935590_Crap.cs" />
+    <Compile Include="Migrations\201410310935590_Crap.Designer.cs">
+      <DependentUpon>201410310935590_Crap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -78,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410281157180_AddPersistensy.resx">
       <DependentUpon>201410281157180_AddPersistensy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410310935590_Crap.resx">
+      <DependentUpon>201410310935590_Crap.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

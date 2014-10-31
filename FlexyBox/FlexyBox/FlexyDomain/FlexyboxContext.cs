@@ -21,7 +21,7 @@ namespace FlexyDomain
         /// </summary>
         /// <typeparam name="T">Type to find</typeparam>
         /// <returns>IQueryable of T</returns>
-        public IQueryable<T> Query<T>(bool includeDeleted) where T : class
+        public IQueryable<T> Query<T>(bool includeDeleted = false) where T : class
         {
             if (!includeDeleted && typeof(T).IsSubclassOf(typeof(EntityPersist)))
             {

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace FlexyBox.ViewModel
 {
-    public class FlowStepViewModel
+    public class StepQuestionViewModel
     {
+        public int Id { get; set; }
         public string Header{ get; set; }
         public string Description{ get; set; }
         public int Order { get; set; }
-        public FlowStepViewModel Child { get; set; }
-        public FlowStepViewModel Parent { get; set; }
+        public StepQuestionViewModel Child { get; set; }
+        public StepQuestionViewModel Parent { get; set; }
+        public StepAnswerViewModel Answer { get; set; }
+
     }
 }
