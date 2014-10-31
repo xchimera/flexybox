@@ -55,6 +55,18 @@
     <Compile Include="Migrations\201410310935590_Crap.Designer.cs">
       <DependentUpon>201410310935590_Crap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410311201415_QuestionUpdate.cs" />
+    <Compile Include="Migrations\201410311201415_QuestionUpdate.Designer.cs">
+      <DependentUpon>201410311201415_QuestionUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410311321304_QuestionUpdate1.cs" />
+    <Compile Include="Migrations\201410311321304_QuestionUpdate1.Designer.cs">
+      <DependentUpon>201410311321304_QuestionUpdate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410311528399_AnswerUpdate.cs" />
+    <Compile Include="Migrations\201410311528399_AnswerUpdate.Designer.cs">
+      <DependentUpon>201410311528399_AnswerUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -86,6 +98,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410310935590_Crap.resx">
       <DependentUpon>201410310935590_Crap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311201415_QuestionUpdate.resx">
+      <DependentUpon>201410311201415_QuestionUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311321304_QuestionUpdate1.resx">
+      <DependentUpon>201410311321304_QuestionUpdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311528399_AnswerUpdate.resx">
+      <DependentUpon>201410311528399_AnswerUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

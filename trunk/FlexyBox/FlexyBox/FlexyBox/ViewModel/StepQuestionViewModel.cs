@@ -15,6 +15,8 @@ namespace FlexyBox.ViewModel
         public StepQuestionViewModel Child { get; set; }
         public StepQuestionViewModel Parent { get; set; }
         public StepAnswerViewModel Answer { get; set; }
+        public StepGroupViewModel Group { get; set; }
+
 
     }
 }
