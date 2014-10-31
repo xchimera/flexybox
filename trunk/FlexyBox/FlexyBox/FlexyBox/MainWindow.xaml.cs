@@ -36,7 +36,15 @@ namespace FlexyBox
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            var group = new StepGroup()
+            {
+                Header = "Pre-Installation"
+            };
+
+            using (var ctx = new FlexyboxContext())
+            {
+                ctx.SaveEntity<StepGroup>(group);
+            }
 
 
         }
