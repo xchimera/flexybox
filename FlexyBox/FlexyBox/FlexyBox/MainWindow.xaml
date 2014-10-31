@@ -37,22 +37,38 @@
                     <TextBlock Text="{Binding Header}"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding Questions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
+                                    <DockPanel Margin="10">
+                                        <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
+                                            <Image Name="Completed" Source="/Icons/Accept-32x32.png" Width="32" MouseUp="Completed_MouseUp"/>
+                                            <Image Name="NotCompleted" Source="/Icons/Abort-32x32.png" Width="32" MouseUp="NotCompleted_MouseUp" Margin="5,0,0,0"/>
+                                            <Image Name="NotConsidered" Source="/Icons/QuestionMark-32x32.png" Width="32" MouseUp="NotConsidered_MouseUp" Margin="5,0,0,0"/>
+                                        </DockPanel>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                            <TextBox Text="{Binding Comment}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                </DataTemplate>
+
+            </TabControl.ContentTemplate>
         </TabControl>
     </Grid>
 </Window>
 
-<!--<StackPanel>
-    <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
-        <DockPanel Margin="10">
-            <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                <Image Name="Completed" Source="/Icons/Accept-32x32.png" MouseUp="Completed_MouseUp"/>
-                <Image Name="NotCompleted" Source="/Icons/Abort-32x32.png" MouseUp="NotCompleted_MouseUp" Margin="5,0,0,0"/>
-                <Image Name="NotConsidered" Source="/Icons/QuestionMark-32x32.png" MouseUp="NotConsidered_MouseUp" Margin="5,0,0,0"/>
-            </DockPanel>
-            <StackPanel>
-                <TextBlock Text="{Binding Header}" TextWrapping="Wrap"/>
-                <TextBox Text="{Binding Comment}" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="30"/>
-            </StackPanel>
-        </DockPanel>
-    </Border>
-</StackPanel>-->

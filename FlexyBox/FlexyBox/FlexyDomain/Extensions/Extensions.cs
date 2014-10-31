@@ -21,5 +21,17 @@ namespace FlexyDomain.Extensions
             }
       
         }
+        public static void AddRange<T>(this BindingList<T> source, IEnumerable<T> list)
+        {
+            if (list == null)
+                return;
+
+            foreach (var item in list)
+            {
+                source.Add(item);
+            }
+
+        }
+
     }
 }
