@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace FlexyBox.ViewModel
 {
-    class StepAnswerViewModel
+    public class StepAnswerViewModel
     {
+        public int Id { get; set; }
+        public string Comment { get; set; }
+        public FlexyDomain.Models.EnumAnswer Answer { get; set; }
+        public int EmployeeId { get; set; }
+        public DateTime TimeChanged { get; set; }
+        public bool IsLog { get; set; }
     }
 }

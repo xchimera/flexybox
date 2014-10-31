@@ -67,7 +67,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\FlowStepViewModel.cs" />
+    <Compile Include="ViewModel\CustomerFlowViewModel.cs" />
+    <Compile Include="ViewModel\StepQuestionViewModel.cs" />
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />
     <Page Include="MainWindow.xaml">

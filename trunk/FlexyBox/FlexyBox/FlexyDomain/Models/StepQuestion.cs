@@ -12,5 +12,6 @@ namespace FlexyDomain.Models
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
         public int Order { get; set; }
+        public StepQuestion Question { get; set; }
     }
 }

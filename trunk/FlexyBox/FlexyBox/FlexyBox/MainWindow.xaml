@@ -34,23 +34,25 @@
         <TabControl Grid.Row="1" ItemsSource="{Binding Groups}" TabStripPlacement="Left">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
-                            <DockPanel Margin="10">
-                                <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                                    <Image Name="Completed" Source="/Icons/Accept-32x32.png" MouseUp="Completed_MouseUp"/>
-                                    <Image Name="NotCompleted" Source="/Icons/Abort-32x32.png" MouseUp="NotCompleted_MouseUp" Margin="5,0,0,0"/>
-                                    <Image Name="NotConsidered" Source="/Icons/QuestionMark-32x32.png" MouseUp="NotConsidered_MouseUp" Margin="5,0,0,0"/>
-                                </DockPanel>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Header}" TextWrapping="Wrap"/>
-                                    <TextBox Text="{Binding Comment}" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="30"/>
-                                </StackPanel>
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
+                    <TextBlock Text="{Binding Header}"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
     </Grid>
 </Window>
+
+<!--<StackPanel>
+    <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
+        <DockPanel Margin="10">
+            <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
+                <Image Name="Completed" Source="/Icons/Accept-32x32.png" MouseUp="Completed_MouseUp"/>
+                <Image Name="NotCompleted" Source="/Icons/Abort-32x32.png" MouseUp="NotCompleted_MouseUp" Margin="5,0,0,0"/>
+                <Image Name="NotConsidered" Source="/Icons/QuestionMark-32x32.png" MouseUp="NotConsidered_MouseUp" Margin="5,0,0,0"/>
+            </DockPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding Header}" TextWrapping="Wrap"/>
+                <TextBox Text="{Binding Comment}" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="30"/>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</StackPanel>-->
