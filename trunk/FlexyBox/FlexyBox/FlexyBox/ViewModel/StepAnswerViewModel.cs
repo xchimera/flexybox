@@ -14,5 +14,7 @@ namespace FlexyBox.ViewModel
         public int EmployeeId { get; set; }
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
+        public StepQuestionViewModel Question { get; set; }
+
     }
 }

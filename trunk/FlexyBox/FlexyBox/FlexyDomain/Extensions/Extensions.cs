@@ -33,5 +33,11 @@ namespace FlexyDomain.Extensions
 
         }
 
+        public static void ForEach<T>(this BindingList<T> source, Action<T> action)
+        {
+            foreach (T item in source)
+                action(item);
+        }
+
     }
 }

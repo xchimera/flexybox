@@ -13,7 +13,7 @@ namespace FlexyDomain.Models
         public DateTime DateCreated { get; set; }
         public int Order { get; set; }
         public StepQuestion Question { get; set; }
-        public StepGroup Group { get; set; }
+        public int GroupId { get; set; }
         public int AnswerId { get; set; }
     }
 }

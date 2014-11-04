@@ -43,7 +43,9 @@ namespace FlexyBox
         {
             using (var ctx = new FlexyboxContext())
             {
-                ctx.SaveEntity<StepQuestion>(new StepQuestion() { Group = new StepGroup { Id = 1 }, DateCreated = DateTime.Now, Description = "Test", Header = "TestTest", Order = 0 });
+                StepAnswer answer = new StepAnswer() { QuestionId = 4, TimeChanged = DateTime.Now, EmployeeId = 1 };
+                ctx.SaveEntity<StepAnswer>(answer);
+                ctx.SaveEntity<StepQuestion>(new StepQuestion() { GroupId = 1, DateCreated = DateTime.Now, Description = "Test", Header = "TestTest", Order = 0, AnswerId = answer.Id });
             }
         }
 
@@ -61,7 +63,7 @@ namespace FlexyBox
                 })).ToList();
 
                 result.ForEach(x => x.Questions = new BindingList<StepQuestionViewModel>(ctx.Query<StepQuestion>()
-                    .Where(y => y.Group.Id == x.Id)
+                    .Where(y => y.GroupId == x.Id)
                     .Select(c => new StepQuestionViewModel()
                     {
                         Description = c.Description,
@@ -71,13 +73,42 @@ namespace FlexyBox
                         
                     }).ToList()));
 
+                //result.ForEach(x => x.Questions.Where(c => c.Answer == ctx.Query<StepAnswer>()
+                //    .Where(v => v.QuestionId == c.Id && v.IsLog != true)
+                //    .Select(y => new StepAnswerViewModel()
+                //    {
+                //        Id = y.Id,
+                //        Answer = y.QuestionAnswer,
+                //        Comment = y.Comment,
+                //        EmployeeId = y.EmployeeId,
+                //        Question = c,
+                //        TimeChanged = y.TimeChanged
+                //    }).SingleOrDefault()));
+
+                foreach(var item in result)
+                {
+                    foreach(var question in item.Questions)
+                    {
+                        question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog)
+                            .Select(c => new StepAnswerViewModel()
+                            {
+                                Id = c.Id,
+                                Answer = c.QuestionAnswer,
+                                Comment = c.Comment,
+                                EmployeeId = c.EmployeeId,
+                                TimeChanged = c.TimeChanged
+                            }).SingleOrDefault();
+                        question.Answer.Question = question;
+                    }
+                }
+
             }
             Model.Groups.AddRange(result);
         }
 
         private void Completed_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
         }
 
         private void NotCompleted_MouseUp(object sender, MouseButtonEventArgs e)
