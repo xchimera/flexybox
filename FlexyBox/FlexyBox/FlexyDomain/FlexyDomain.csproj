@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201410311528399_AnswerUpdate.Designer.cs">
       <DependentUpon>201410311528399_AnswerUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411041046264_michaelRedone.cs" />
+    <Compile Include="Migrations\201411041046264_michaelRedone.Designer.cs">
+      <DependentUpon>201411041046264_michaelRedone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410311528399_AnswerUpdate.resx">
       <DependentUpon>201410311528399_AnswerUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411041046264_michaelRedone.resx">
+      <DependentUpon>201411041046264_michaelRedone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

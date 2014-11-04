@@ -13,14 +13,15 @@ namespace FlexyDomain.Models
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
         public EnumAnswer QuestionAnswer { get; set; }
-        public StepQuestion Question { get; set; }
+        public int QuestionId { get; set; }
         public bool IsDeleted { get; set; }
     }
 
     public enum EnumAnswer
     {
-        Done = 0,
-        NotDone = 1,
-        NotApplicable = 2
+        Done = 1,
+        NotDone = 2,
+        NotApplicable = 3,
+        NotAnswered = 0
     }
 }
