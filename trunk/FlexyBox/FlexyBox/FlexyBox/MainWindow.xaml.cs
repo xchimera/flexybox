@@ -73,17 +73,6 @@ namespace FlexyBox
                         
                     }).ToList()));
 
-                //result.ForEach(x => x.Questions.Where(c => c.Answer == ctx.Query<StepAnswer>()
-                //    .Where(v => v.QuestionId == c.Id && v.IsLog != true)
-                //    .Select(y => new StepAnswerViewModel()
-                //    {
-                //        Id = y.Id,
-                //        Answer = y.QuestionAnswer,
-                //        Comment = y.Comment,
-                //        EmployeeId = y.EmployeeId,
-                //        Question = c,
-                //        TimeChanged = y.TimeChanged
-                //    }).SingleOrDefault()));
 
                 foreach(var item in result)
                 {
@@ -109,6 +98,7 @@ namespace FlexyBox
         private void Completed_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
+
         }
 
         private void NotCompleted_MouseUp(object sender, MouseButtonEventArgs e)

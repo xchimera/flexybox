@@ -9,6 +9,7 @@ namespace FlexyDomain.Models
     class CustomerFlow : EntityPersist
     {
         public int CustomerId { get; set; }
+        public string Name { get; set; }
         IList<StepAnswer> Answers { get; set; }
     }
 }

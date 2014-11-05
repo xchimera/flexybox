@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace FlexyDomain.Models
 {
     public class StepAnswer : EntityPersist
-    {
+    {       
+        public int QuestionId { get; set; }
+        public int CustomerFlowId { get; set; }
         public string Comment { get; set; }
         public int EmployeeId { get; set; }
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
         public EnumAnswer QuestionAnswer { get; set; }
-        public int QuestionId { get; set; }
         public bool IsDeleted { get; set; }
     }
 
