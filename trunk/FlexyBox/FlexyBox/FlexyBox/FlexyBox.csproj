@@ -110,7 +110,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlexyDomain\FlexyDomain.csproj">
@@ -127,6 +129,11 @@
     <Resource Include="Icons\Abort-32x32.png" />
     <Resource Include="Icons\Accept-32x32.png" />
     <Resource Include="Icons\QuestionMark-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\check48x48.png" />
+    <Resource Include="Icons\checkbox48x48.png" />
+    <Resource Include="Icons\delete48x48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
