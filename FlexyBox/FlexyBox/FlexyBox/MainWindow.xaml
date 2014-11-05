@@ -45,7 +45,7 @@
                                 <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
                                     <DockPanel Margin="10">
                                         <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                                            <Image Name="NotConsidered" Width="32" MouseUp="NotConsidered_MouseUp" Margin="5,0,0,0">
+                                            <Image Name="CheckBox" Width="32" MouseUp="CheckBox_MouseUp" Margin="5,0,0,0">
                                                 <Image.Style>
                                                     <Style TargetType="{x:Type Image}">
                                                         <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>

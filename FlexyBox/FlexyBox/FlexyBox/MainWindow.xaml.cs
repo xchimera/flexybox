@@ -18,6 +18,7 @@ using System.ComponentModel;
 using FlexyBox.ViewModel;
 using System.Collections.ObjectModel;
 using FlexyDomain.Extensions;
+using System.Diagnostics;
 
 namespace FlexyBox
 {
@@ -97,8 +98,7 @@ namespace FlexyBox
 
         private void Completed_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
-
+            var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;  
         }
 
         private void NotCompleted_MouseUp(object sender, MouseButtonEventArgs e)
@@ -106,8 +106,9 @@ namespace FlexyBox
 
         }
 
-        private void NotConsidered_MouseUp(object sender, MouseButtonEventArgs e)
+        private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
+
 
         }
     }
