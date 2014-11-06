@@ -13,5 +13,10 @@ namespace FlexyBox
     /// </summary>
     public partial class App : Application
     {
+        //Expects employeeId customerId
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            new MainWindow(int.Parse(e.Args[0]), int.Parse(e.Args[1])).Show();
+        }
     }
 }

@@ -32,12 +32,12 @@ namespace FlexyBox
             get { return DataContext as MainWindowViewModel; }
             set { DataContext = value; }
         }
-        public MainWindow()
+        public MainWindow(int employeeId, int customerId)
         {
             InitializeComponent();
-            Model = new MainWindowViewModel();
+            Model = new MainWindowViewModel(employeeId);
             //Loaded += MainWindow_Loaded;
-            Reload();
+            Reload(customerId);
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -50,12 +50,19 @@ namespace FlexyBox
             }
         }
 
-        private void Reload()
+        private void Reload(int customerId)
         {
             Model.Groups.Clear();
             List<StepGroupViewModel> result;
             using (var ctx = new FlexyboxContext())
             {
+                Model.CustomerViewModel = ctx.QueryFromID<CustomerFlow>(customerId).Select(x => new CustomerFlowViewModel()
+                    {
+                        Id = x.Id,
+                        CustomerId = x.CustomerId,
+                        Name = x.Name
+                    }).SingleOrDefault();
+
                 result = (ctx.Query<StepGroup>()
                     .Select(x => new StepGroupViewModel()
                 {
@@ -79,7 +86,7 @@ namespace FlexyBox
                 {
                     foreach(var question in item.Questions)
                     {
-                        question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog)
+                        question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog && x.CustomerFlowId == Model.CustomerViewModel.Id)
                             .Select(c => new StepAnswerViewModel()
                             {
                                 Entity = c,
@@ -111,6 +118,7 @@ namespace FlexyBox
                 answer.Answer = EnumAnswer.Done;
 
             answer.TimeChanged = DateTime.Now;
+            answer.EmployeeId = Model.EmployeeId;
             using (var ctx = new FlexyboxContext())
             {
                 ctx.SaveEntity<StepAnswer>(answer.Entity);
@@ -118,20 +126,17 @@ namespace FlexyBox
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
     public class MainWindowViewModel
     {
-
+        public int EmployeeId { get; set; }
         public ObservableCollection<StepGroupViewModel> Groups { get; set; }
-
-        public MainWindowViewModel()
+        public CustomerFlowViewModel CustomerViewModel { get; set; }
+        public MainWindowViewModel(int employeeId)
         {
             Groups = new ObservableCollection<StepGroupViewModel>();
+            EmployeeId = employeeId;
         }
 
     }

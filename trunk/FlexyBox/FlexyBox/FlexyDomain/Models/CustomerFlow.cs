@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
-    class CustomerFlow : EntityPersist
+    public class CustomerFlow : EntityPersist
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }
