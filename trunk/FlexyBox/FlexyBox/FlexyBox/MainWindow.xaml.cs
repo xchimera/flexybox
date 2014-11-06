@@ -82,7 +82,7 @@ namespace FlexyBox
                         question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog)
                             .Select(c => new StepAnswerViewModel()
                             {
-                                Id = c.Id,
+                                Entity = c,
                                 Answer = c.QuestionAnswer,
                                 Comment = c.Comment,
                                 EmployeeId = c.EmployeeId,
@@ -96,25 +96,37 @@ namespace FlexyBox
             Model.Groups.AddRange(result);
         }
 
-        private void Completed_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;  
-        }
-
-        private void NotCompleted_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
 
         private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
 
+            if (answer.Answer == EnumAnswer.Done)
+                answer.Answer = EnumAnswer.NotDone;
+            else if (answer.Answer == EnumAnswer.NotDone)
+                answer.Answer = EnumAnswer.NotApplicable;
+            else if (answer.Answer == EnumAnswer.NotApplicable)
+                answer.Answer = EnumAnswer.Done;
+            else if (answer.Answer == EnumAnswer.NotAnswered)
+                answer.Answer = EnumAnswer.Done;
+
+            answer.TimeChanged = DateTime.Now;
+            using (var ctx = new FlexyboxContext())
+            {
+                ctx.SaveEntity<StepAnswer>(answer.Entity);
+            }
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
 
     public class MainWindowViewModel
     {
+
         public ObservableCollection<StepGroupViewModel> Groups { get; set; }
 
         public MainWindowViewModel()

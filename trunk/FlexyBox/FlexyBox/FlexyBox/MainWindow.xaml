@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FlexyBox.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           Title="MainWindow" Height="350" Width="525">
+           Title="MainWindow" Height="600" Width="1000">
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Padding" Value="15"/>
@@ -37,6 +37,7 @@
                     <TextBlock Text="{Binding Header}"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding Questions}">
@@ -63,13 +64,27 @@
                                                                 <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
-                                                    </Style>   
+                                                    </Style>
                                                 </Image.Style>
                                             </Image>
                                         </DockPanel>
                                         <StackPanel>
                                             <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
-                                            <TextBox Text="{Binding Comment}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50"/>
+                                            <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
+                                                <TextBox.Style>
+                                                    <Style TargetType="TextBox">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Answer.Answer}" Value="NotAnswered">
+                                                                <Setter Property="IsEnabled" Value="True"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Answer.Answer}" Value="NotApplicable">
+                                                                <Setter Property="IsEnabled" Value="True"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
