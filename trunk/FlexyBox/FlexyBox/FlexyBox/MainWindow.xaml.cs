@@ -44,9 +44,9 @@ namespace FlexyBox
         {
             using (var ctx = new FlexyboxContext())
             {
-                StepAnswer answer = new StepAnswer() { QuestionId = 4, TimeChanged = DateTime.Now, EmployeeId = 1 };
+                StepAnswer answer = new StepAnswer() { QuestionId = 6, TimeChanged = DateTime.Now, EmployeeId = 1 };
                 ctx.SaveEntity<StepAnswer>(answer);
-                ctx.SaveEntity<StepQuestion>(new StepQuestion() { GroupId = 1, DateCreated = DateTime.Now, Description = "Test", Header = "TestTest", Order = 0, AnswerId = answer.Id });
+                ctx.SaveEntity<StepQuestion>(new StepQuestion() { GroupId = 1, DateCreated = DateTime.Now, Description = "Test", Header = "TestTest", Order = 0, AnswerId = answer.Id, Question = new StepQuestion() { Id = 1 } });
             }
         }
 
@@ -98,7 +98,6 @@ namespace FlexyBox
                         question.Answer.Question = question;
                     }
                 }
-
             }
             Model.Groups.AddRange(result);
         }
@@ -107,23 +106,63 @@ namespace FlexyBox
         private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
-
-            if (answer.Answer == EnumAnswer.Done)
-                answer.Answer = EnumAnswer.NotDone;
-            else if (answer.Answer == EnumAnswer.NotDone)
-                answer.Answer = EnumAnswer.NotApplicable;
-            else if (answer.Answer == EnumAnswer.NotApplicable)
-                answer.Answer = EnumAnswer.Done;
-            else if (answer.Answer == EnumAnswer.NotAnswered)
-                answer.Answer = EnumAnswer.Done;
-
-            answer.TimeChanged = DateTime.Now;
-            answer.EmployeeId = Model.EmployeeId;
-            using (var ctx = new FlexyboxContext())
+            if (e.LeftButton == MouseButtonState.Released || e.RightButton == MouseButtonState.Released)
             {
-                ctx.SaveEntity<StepAnswer>(answer.Entity);
-            }
+                answer.TimeChanged = DateTime.Now;
+                answer.EmployeeId = Model.EmployeeId;
+                answer.IsLog = true;
+                using (var ctx = new FlexyboxContext())
+                {
+                    ctx.SaveEntity<StepAnswer>(answer.Entity);
+                }
 
+                if (e.LeftButton == MouseButtonState.Released)
+                {
+                    if (answer.Answer == EnumAnswer.Done)
+                        answer.Answer = EnumAnswer.NotDone;
+                    else if (answer.Answer == EnumAnswer.NotDone)
+                        answer.Answer = EnumAnswer.NotApplicable;
+                    else if (answer.Answer == EnumAnswer.NotApplicable)
+                        answer.Answer = EnumAnswer.Done;
+                    else if (answer.Answer == EnumAnswer.NotAnswered)
+                        answer.Answer = EnumAnswer.Done;
+                }
+                else
+                {
+                    if (answer.Answer == EnumAnswer.Done)
+                        answer.Answer = EnumAnswer.NotApplicable;
+                    else if (answer.Answer == EnumAnswer.NotApplicable)
+                        answer.Answer = EnumAnswer.NotDone;
+                    else if (answer.Answer == EnumAnswer.NotDone)
+                        answer.Answer = EnumAnswer.Done;
+                    else if (answer.Answer == EnumAnswer.NotAnswered)
+                        answer.Answer = EnumAnswer.Done;
+                }
+
+                StepAnswer newAnswer = new StepAnswer()
+                {
+                    Comment = answer.Comment,
+                    CustomerFlowId = Model.CustomerViewModel.Id,
+                    EmployeeId = Model.EmployeeId,
+                    QuestionAnswer = answer.Answer,
+                    QuestionId = answer.Question.Id,
+                    TimeChanged = DateTime.Now
+                };
+                using (var ctx = new FlexyboxContext())
+                {
+                    ctx.SaveEntity<StepAnswer>(newAnswer);
+                }
+                foreach (var group in Model.Groups)
+                {
+                    foreach (var question in group.Questions)
+                    {
+                        if (question.Id == answer.Question.Id)
+                        {
+                            question.Answer = new StepAnswerViewModel() { Entity = newAnswer, Question = question };
+                        }
+                    }
+                }
+            }
         }
 
     }

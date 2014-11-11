@@ -39,5 +39,12 @@ namespace FlexyDomain.Extensions
                 action(item);
         }
 
+        public static void ForEach<T>(this ObservableCollection<T> source, Action<T> action)
+        {
+            foreach (T item in source)
+                action(item);
+        }
+
+
     }
 }

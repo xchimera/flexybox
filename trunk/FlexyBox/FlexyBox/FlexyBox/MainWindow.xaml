@@ -17,7 +17,7 @@
             <RibbonTab Header="Home" KeyTip="H" >
                 <!-- Home  group-->
                 <RibbonGroup x:Name="ClipboardGroup" >
-                    <RibbonButton  Label="Søg" KeyTip="S" />
+                    <RibbonButton  Label="Søg" KeyTip="S"/>
                     <RibbonButton Label="Tilføj" KeyTip="T" >
                         <TabControl Height="100" Width="100">
                             <TabItem Header="TabItem">
@@ -44,6 +44,15 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsChild}" Value="True">
+                                                    <Setter Property="Margin" Value="15,0,0,0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
                                     <DockPanel Margin="10">
                                         <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
                                             <Image Name="CheckBox" Width="32" MouseUp="CheckBox_MouseUp" Margin="5,0,0,0">
@@ -53,6 +62,7 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="Done">
                                                                 <Setter Property="Source" Value="/Icons/check48x48.png"/>
+                                                                <Setter Property="Visibility" Value="Visible"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="NotDone">
                                                                 <Setter Property="Source" Value="/Icons/delete48x48.png"/>
