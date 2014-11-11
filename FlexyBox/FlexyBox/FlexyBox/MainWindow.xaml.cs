@@ -74,32 +74,31 @@ namespace FlexyBox
                     .Where(y => y.GroupId == x.Id)
                     .Select(c => new StepQuestionViewModel()
                     {
-                        Description = c.Description,
-                        Header = c.Header,
-                        Id = c.Id,
-                        Order = c.Order,
+                        Entity = c,
+                        //Child = c.Question.Id
                         
                     }).ToList()));
-
+                
 
                 foreach(var item in result)
                 {
+                    
                     foreach(var question in item.Questions)
                     {
+                        
+                            //if(question.Entity.Question != null)
+                            //    question.Entity.Question.
                         question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog && x.CustomerFlowId == Model.CustomerViewModel.Id)
                             .Select(c => new StepAnswerViewModel()
                             {
                                 Entity = c,
-                                Answer = c.QuestionAnswer,
-                                Comment = c.Comment,
-                                EmployeeId = c.EmployeeId,
-                                TimeChanged = c.TimeChanged
                             }).SingleOrDefault();
                         question.Answer.Question = question;
                     }
                 }
             }
             Model.Groups.AddRange(result);
+            
         }
 
 
@@ -154,13 +153,23 @@ namespace FlexyBox
                 }
                 foreach (var group in Model.Groups)
                 {
+                    var shouldBreak = false;
                     foreach (var question in group.Questions)
                     {
                         if (question.Id == answer.Question.Id)
                         {
                             question.Answer = new StepAnswerViewModel() { Entity = newAnswer, Question = question };
+                            question.Entity.AnswerId = newAnswer.Id;
+                            using (var ctx = new FlexyboxContext())
+                            {
+                                ctx.SaveEntity<StepQuestion>(question.Entity);
+                            }
+                            shouldBreak = true;
+                            break;
                         }
                     }
+                    if (shouldBreak)
+                        break;
                 }
             }
         }

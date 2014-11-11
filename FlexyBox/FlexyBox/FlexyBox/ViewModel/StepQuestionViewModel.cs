@@ -62,6 +62,17 @@ namespace FlexyBox.ViewModel
         }
 
         public int Child { get; set; }
+        
+        public bool IsChild
+        {
+            get
+            {
+                if (Parent != 0)
+                    return true;
+                return false;
+            }
+        }
+
         public int Parent { get; set; }
         public StepAnswerViewModel Answer { get; set; }
         public StepGroupViewModel Group { get; set; }
