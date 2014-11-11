@@ -101,7 +101,13 @@ namespace FlexyBox
             
         }
 
-
+        private void Log_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+          
+                LogWindow popup = new LogWindow();
+                popup.ShowDialog();
+               
+        }
         private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
