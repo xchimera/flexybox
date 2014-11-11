@@ -72,6 +72,15 @@ namespace FlexyBox.ViewModel
         }
         public StepQuestionViewModel Question { get; set; }
 
+        public bool IsChild
+        {
+            get
+            {
+                if (Question.Parent != null)
+                    return true;
+                return false;
+            }
+        }
 
 
 
