@@ -67,10 +67,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LogWindow.xaml.cs">
+      <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CustomerFlowViewModel.cs" />
     <Compile Include="ViewModel\StepQuestionViewModel.cs" />
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />
+    <Page Include="LogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
