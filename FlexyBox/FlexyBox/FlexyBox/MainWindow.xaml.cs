@@ -19,6 +19,7 @@ using FlexyBox.ViewModel;
 using System.Collections.ObjectModel;
 using FlexyDomain.Extensions;
 using System.Diagnostics;
+using System.Data.Entity;
 
 namespace FlexyBox
 {
@@ -27,7 +28,7 @@ namespace FlexyBox
     /// </summary>
     public partial class MainWindow : Window
     {
-      
+
         public MainWindowViewModel Model
         {
             get { return DataContext as MainWindowViewModel; }
@@ -47,60 +48,99 @@ namespace FlexyBox
             {
                 StepAnswer answer = new StepAnswer() { QuestionId = 6, TimeChanged = DateTime.Now, EmployeeId = 1 };
                 ctx.SaveEntity<StepAnswer>(answer);
-                ctx.SaveEntity<StepQuestion>(new StepQuestion() { GroupId = 1, DateCreated = DateTime.Now, Description = "Test", Header = "TestTest", Order = 0, AnswerId = answer.Id, Question = new StepQuestion() { Id = 1 } });
+                ctx.SaveEntity<StepQuestion>(new StepQuestion()
+                {
+                    GroupId = 1,
+                    DateCreated = DateTime.Now,
+                    Description = "Test",
+                    Header = "TestTest",
+                    Order = 0,
+                });
             }
+        }
+
+        private List<StepAnswerViewModel> GetAnswers(FlexyboxContext ctx, IList<StepAnswer> answers)
+        {
+            var result = new List<StepAnswerViewModel>();
+            foreach (var answer in answers)
+            {
+                var answerVm = new StepAnswerViewModel()
+                {
+                    Entity = answer,
+                };
+                result.Add(answerVm);
+            }
+
+
+            return result;
+        }
+
+        private List<StepGroupViewModel> GetGroups(FlexyboxContext ctx)
+        {
+            var result = new List<StepGroupViewModel>();
+
+            var groups = ctx.Query<StepGroup>()
+                .Include(x => x.Questions).ToList();
+
+            foreach (var group in groups)
+            {
+                var groupVm = new StepGroupViewModel()
+                {
+                    Id = group.Id,
+                    Header = group.Header,
+                    Questions = group.Questions.Select(x => new StepQuestionViewModel()
+                    {
+                        Entity = x,
+                    }).ToBindingList(),
+
+
+                };
+                groupVm.Questions.ForEach(x => x.Group = groupVm);
+                result.Add(groupVm);
+            }
+            return result;
         }
 
         private void Reload(int customerId)
         {
             Model.Groups.Clear();
-            List<StepGroupViewModel> result;
+
+            List<StepAnswerViewModel> answers;
+            CustomerFlowViewModel customer;
+            List<StepGroupViewModel> groups;
             using (var ctx = new FlexyboxContext())
             {
-                Model.CustomerViewModel = ctx.QueryFromID<CustomerFlow>(customerId).Select(x => new CustomerFlowViewModel()
-                    {
-                        Id = x.Id,
-                        CustomerId = x.CustomerId,
-                        Name = x.Name
-                    }).SingleOrDefault();
-
-                result = (ctx.Query<StepGroup>()
-                    .Select(x => new StepGroupViewModel()
+                customer= ctx.QueryFromID<CustomerFlow>(customerId).Select(x=> new CustomerFlowViewModel()
                 {
-                    Header = x.Header,
                     Id = x.Id,
-                })).ToList();
+                    CustomerId = x.CustomerId,
+                    Name = x.Name
+                }).Single();
 
-                result.ForEach(x => x.Questions = new BindingList<StepQuestionViewModel>(ctx.Query<StepQuestion>()
-                    .Where(y => y.GroupId == x.Id)
-                    .Select(c => new StepQuestionViewModel()
-                    {
-                        Entity = c,
-                        //Child = c.Question.Id
-                        
-                    }).ToList()));
+                var entityAnswers = ctx.Query<StepAnswer>().Include(x=> x.QuestionId).Where(x => x.CustomerFlowId == customer.Id && !x.IsLog).ToList();
+
+                groups = GetGroups(ctx);
+                answers = GetAnswers(ctx, entityAnswers);
                 
-
-                foreach(var item in result)
+            }
+            foreach (var group in groups)
+            {
+                foreach (var question in group.Questions)
                 {
-                    
-                    foreach(var question in item.Questions)
+                    foreach (var answer in answers)
                     {
-                        
-                            //if(question.Entity.Question != null)
-                            //    question.Entity.Question.
-                        question.Answer = ctx.Query<StepAnswer>().Where(x => x.QuestionId == question.Id && !x.IsLog && x.CustomerFlowId == Model.CustomerViewModel.Id)
-                            .Select(c => new StepAnswerViewModel()
-                            {
-                                Entity = c,
-                            }).SingleOrDefault();
-                        question.Answer.Question = question;
-                        question.Answer.Group = item;
+                        if (answer.Question.Id == question.Id)
+                        {
+                            question.Answer = answer;
+                            break;
+                        }
                     }
+
                 }
             }
-            Model.Groups.AddRange(result);
-            
+            Model.CustomerViewModel = customer;
+            Model.Groups = groups.ToBindingList();
+
         }
 
 
@@ -120,17 +160,17 @@ namespace FlexyBox
                         MessageBox.Show("Fejl i at gemme loggen");
                 }
                 var after = DateTime.Now;
-                Console.WriteLine((after-before).TotalMilliseconds);
+                Console.WriteLine((after - before).TotalMilliseconds);
 
                 StepAnswer newAnswer = new StepAnswer()
                 {
                     Comment = answer.Comment,
                     CustomerFlowId = Model.CustomerViewModel.Id,
                     EmployeeId = Model.EmployeeId,
-                    QuestionAnswer = answer.Answer,
+                    State = answer.State,
                     QuestionId = answer.Question.Id,
                     TimeChanged = DateTime.Now
-                    
+
                 };
 
                 answer = new StepAnswerViewModel() { Entity = newAnswer, Question = answer.Question };
@@ -155,25 +195,25 @@ namespace FlexyBox
 
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
-                    if (answer.Answer == EnumAnswer.Done)
-                        answer.Answer = EnumAnswer.NotDone;
-                    else if (answer.Answer == EnumAnswer.NotDone)
-                        answer.Answer = EnumAnswer.NotApplicable;
-                    else if (answer.Answer == EnumAnswer.NotApplicable)
-                        answer.Answer = EnumAnswer.Done;
-                    else if (answer.Answer == EnumAnswer.NotAnswered)
-                        answer.Answer = EnumAnswer.Done;
+                    if (answer.State == AnswerState.Done)
+                        answer.State = AnswerState.NotDone;
+                    else if (answer.State == AnswerState.NotDone)
+                        answer.State = AnswerState.NotApplicable;
+                    else if (answer.State == AnswerState.NotApplicable)
+                        answer.State = AnswerState.Done;
+                    else if (answer.State == AnswerState.NotAnswered)
+                        answer.State = AnswerState.Done;
                 }
                 else
                 {
-                    if (answer.Answer == EnumAnswer.Done)
-                        answer.Answer = EnumAnswer.NotApplicable;
-                    else if (answer.Answer == EnumAnswer.NotApplicable)
-                        answer.Answer = EnumAnswer.NotDone;
-                    else if (answer.Answer == EnumAnswer.NotDone)
-                        answer.Answer = EnumAnswer.Done;
-                    else if (answer.Answer == EnumAnswer.NotAnswered)
-                        answer.Answer = EnumAnswer.Done;
+                    if (answer.State == AnswerState.Done)
+                        answer.State = AnswerState.NotApplicable;
+                    else if (answer.State == AnswerState.NotApplicable)
+                        answer.State = AnswerState.NotDone;
+                    else if (answer.State == AnswerState.NotDone)
+                        answer.State = AnswerState.Done;
+                    else if (answer.State == AnswerState.NotAnswered)
+                        answer.State = AnswerState.Done;
                 }
 
 
@@ -187,7 +227,6 @@ namespace FlexyBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             LogWindow popup = new LogWindow();
             popup.ShowDialog();
         }
@@ -197,11 +236,11 @@ namespace FlexyBox
     public class MainWindowViewModel
     {
         public int EmployeeId { get; set; }
-        public ObservableCollection<StepGroupViewModel> Groups { get; set; }
+        public BindingList<StepGroupViewModel> Groups { get; set; }
         public CustomerFlowViewModel CustomerViewModel { get; set; }
         public MainWindowViewModel(int employeeId)
         {
-            Groups = new ObservableCollection<StepGroupViewModel>();
+            Groups = new BindingList<StepGroupViewModel>();
             EmployeeId = employeeId;
         }
 

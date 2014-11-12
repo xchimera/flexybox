@@ -83,6 +83,14 @@
     <Compile Include="Migrations\201411120818308_rmvChildQuestion.Designer.cs">
       <DependentUpon>201411120818308_rmvChildQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411121214258_addListQuestion.cs" />
+    <Compile Include="Migrations\201411121214258_addListQuestion.Designer.cs">
+      <DependentUpon>201411121214258_addListQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411121424443_michael.cs" />
+    <Compile Include="Migrations\201411121424443_michael.Designer.cs">
+      <DependentUpon>201411121424443_michael.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -135,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411120818308_rmvChildQuestion.resx">
       <DependentUpon>201411120818308_rmvChildQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411121214258_addListQuestion.resx">
+      <DependentUpon>201411121214258_addListQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411121424443_michael.resx">
+      <DependentUpon>201411121424443_michael.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

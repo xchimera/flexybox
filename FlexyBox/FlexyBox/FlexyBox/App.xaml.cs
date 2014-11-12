@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,8 @@ namespace FlexyBox
         //Expects employeeId customerId
         protected override void OnStartup(StartupEventArgs e)
         {
+            if(Debugger.IsAttached)
+                HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
             new MainWindow(int.Parse(e.Args[0]), int.Parse(e.Args[1])).Show();
         }
     }

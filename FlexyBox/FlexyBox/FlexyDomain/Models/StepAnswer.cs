@@ -14,11 +14,11 @@ namespace FlexyDomain.Models
         public int EmployeeId { get; set; }
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
-        public EnumAnswer QuestionAnswer { get; set; }
+        public AnswerState State { get; set; }
         public bool IsDeleted { get; set; }
     }
 
-    public enum EnumAnswer
+    public enum AnswerState
     {
         Done = 1,
         NotDone = 2,
