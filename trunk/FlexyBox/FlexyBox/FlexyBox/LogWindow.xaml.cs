@@ -22,7 +22,12 @@ namespace FlexyBox
         public LogWindow()
         {
             InitializeComponent();
-           
+            LostFocus += LogWindow_LostFocus;
+        }
+
+        void LogWindow_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

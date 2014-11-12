@@ -54,7 +54,7 @@
                                         </Style>
                                     </Border.Style>
                                     <DockPanel Margin="10">
-                                        <Button Content="Log" DockPanel.Dock="Top" HorizontalAlignment="Right"  Width="26" Height="21" Margin="-5,-5,-5,-5" MouseUp="Log_MouseUp"/>
+                                        <Button Content="Log" DockPanel.Dock="Top" HorizontalAlignment="Right"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
                                         <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
                                             <Image Name="CheckBox" Width="32" MouseUp="CheckBox_MouseUp" Margin="5,0,0,0">
                                                 <Image.Style>
@@ -63,7 +63,6 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="Done">
                                                                 <Setter Property="Source" Value="/Icons/check48x48.png"/>
-                                                                <Setter Property="Visibility" Value="Visible"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="NotDone">
                                                                 <Setter Property="Source" Value="/Icons/delete48x48.png"/>

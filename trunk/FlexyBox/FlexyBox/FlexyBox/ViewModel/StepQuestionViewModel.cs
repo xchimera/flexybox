@@ -15,10 +15,10 @@ namespace FlexyBox.ViewModel
         public StepQuestion Entity { get; set; }
 
 
-        public int Id 
+        public int Id
         {
-            get 
-            { 
+            get
+            {
                 return Entity.Id;
             }
         }
@@ -62,7 +62,7 @@ namespace FlexyBox.ViewModel
         }
 
         public int Child { get; set; }
-        
+
         public bool IsChild
         {
             get
@@ -74,17 +74,37 @@ namespace FlexyBox.ViewModel
         }
 
         public int Parent { get; set; }
-        public StepAnswerViewModel Answer { get; set; }
+        private StepAnswerViewModel _answer;
+        public StepAnswerViewModel Answer
+        {
+            get
+            {
+                return _answer;
+            }
+            set
+            {
+                if (_answer != null)
+                    _answer.PropertyChanged -= _answer_PropertyChanged;
+
+                _answer = value;
+                _answer.PropertyChanged += _answer_PropertyChanged;
+            }
+        }
+
+        void _answer_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged("Answer");
+        }
         public StepGroupViewModel Group { get; set; }
 
-        public void OnPropertyChanged(string name) 
+        public void OnPropertyChanged(string name)
         {
-             PropertyChangedEventHandler handler = PropertyChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(name));
             }
 
-        }  
+        }
     }
 }

@@ -71,7 +71,7 @@ namespace FlexyBox.ViewModel
             }
         }
         public StepQuestionViewModel Question { get; set; }
-
+        public StepGroupViewModel Group { get; set; }
         public bool IsChild
         {
             get

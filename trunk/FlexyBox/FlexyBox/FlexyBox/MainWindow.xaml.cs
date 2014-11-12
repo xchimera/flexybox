@@ -95,6 +95,7 @@ namespace FlexyBox
                                 Entity = c,
                             }).SingleOrDefault();
                         question.Answer.Question = question;
+                        question.Answer.Group = item;
                     }
                 }
             }
@@ -102,15 +103,8 @@ namespace FlexyBox
             
         }
 
-        private void Log_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-          
-                LogWindow popup = new LogWindow();
-                popup.ShowDialog();
-              
-        }
-               
-        
+
+
         private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
@@ -119,11 +113,45 @@ namespace FlexyBox
                 answer.TimeChanged = DateTime.Now;
                 answer.EmployeeId = Model.EmployeeId;
                 answer.IsLog = true;
+                var before = DateTime.Now;
                 using (var ctx = new FlexyboxContext())
                 {
                     if (!ctx.SaveEntity<StepAnswer>(answer.Entity))
                         MessageBox.Show("Fejl i at gemme loggen");
                 }
+                var after = DateTime.Now;
+                Console.WriteLine((after-before).TotalMilliseconds);
+
+                StepAnswer newAnswer = new StepAnswer()
+                {
+                    Comment = answer.Comment,
+                    CustomerFlowId = Model.CustomerViewModel.Id,
+                    EmployeeId = Model.EmployeeId,
+                    QuestionAnswer = answer.Answer,
+                    QuestionId = answer.Question.Id,
+                    TimeChanged = DateTime.Now
+                    
+                };
+
+                answer = new StepAnswerViewModel() { Entity = newAnswer, Question = answer.Question };
+                StepQuestionViewModel usedQuestion = null;
+
+                foreach (var group in Model.Groups)
+                {
+                    var shouldBreak = false;
+                    foreach (var question in group.Questions)
+                    {
+                        if (question.Id == answer.Question.Id)
+                        {
+                            question.Answer = answer;
+                            shouldBreak = true;
+                            break;
+                        }
+                    }
+                    if (shouldBreak)
+                        break;
+                }
+
 
                 if (e.LeftButton == MouseButtonState.Released)
                 {
@@ -148,41 +176,19 @@ namespace FlexyBox
                         answer.Answer = EnumAnswer.Done;
                 }
 
-                StepAnswer newAnswer = new StepAnswer()
-                {
-                    Comment = answer.Comment,
-                    CustomerFlowId = Model.CustomerViewModel.Id,
-                    EmployeeId = Model.EmployeeId,
-                    QuestionAnswer = answer.Answer,
-                    QuestionId = answer.Question.Id,
-                    TimeChanged = DateTime.Now
-                };
+
                 using (var ctx = new FlexyboxContext())
                 {
                     if (!ctx.SaveEntity<StepAnswer>(newAnswer))
                         MessageBox.Show("Fejl i at gemme ny svar entitet");
                 }
-                foreach (var group in Model.Groups)
-                {
-                    var shouldBreak = false;
-                    foreach (var question in group.Questions)
-                    {
-                        if (question.Id == answer.Question.Id)
-                        {
-                            question.Answer = new StepAnswerViewModel() { Entity = newAnswer, Question = question };
-                            question.Entity.AnswerId = newAnswer.Id;
-                            using (var ctx = new FlexyboxContext())
-                            {
-                                ctx.SaveEntity<StepQuestion>(question.Entity);
-                            }
-                            shouldBreak = true;
-                            break;
-                        }
-                    }
-                    if (shouldBreak)
-                        break;
-                }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LogWindow popup = new LogWindow();       
+            popup.ShowDialog();
         }
 
     }
