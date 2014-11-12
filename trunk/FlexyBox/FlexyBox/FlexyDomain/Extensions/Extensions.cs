@@ -45,6 +45,11 @@ namespace FlexyDomain.Extensions
                 action(item);
         }
 
+        public static BindingList<T> ToBindingList<T>(this IEnumerable<T> source)
+        {
+            return new BindingList<T>(source.ToList());
+        }
+
 
     }
 }

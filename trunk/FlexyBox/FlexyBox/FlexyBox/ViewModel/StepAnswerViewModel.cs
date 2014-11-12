@@ -33,15 +33,15 @@ namespace FlexyBox.ViewModel
                 OnPropertyChanged("Comment");
             }
         }
-        public FlexyDomain.Models.EnumAnswer Answer
+        public FlexyDomain.Models.AnswerState State
         {
             get
             {
-                return Entity.QuestionAnswer;
+                return Entity.State;
             }
             set
             {
-                Entity.QuestionAnswer = value;
+                Entity.State = value;
                 OnPropertyChanged("Answer");
             }
         }
@@ -71,16 +71,7 @@ namespace FlexyBox.ViewModel
             }
         }
         public StepQuestionViewModel Question { get; set; }
-        public StepGroupViewModel Group { get; set; }
-        public bool IsChild
-        {
-            get
-            {
-                if (Question.Parent != null)
-                    return true;
-                return false;
-            }
-        }
+
 
 
 

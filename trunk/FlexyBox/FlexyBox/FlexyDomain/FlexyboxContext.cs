@@ -154,6 +154,8 @@ namespace FlexyDomain
                     entitymethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { });
                 }
             }
+            
+
             base.OnModelCreating(modelBuilder);
         }
     }

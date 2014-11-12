@@ -10,6 +10,6 @@ namespace FlexyDomain.Models
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }
-        IList<StepAnswer> Answers { get; set; }
+        public IList<StepAnswer> Answers { get; set; }
     }
 }
