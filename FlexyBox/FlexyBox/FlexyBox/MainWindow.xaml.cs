@@ -105,10 +105,10 @@ namespace FlexyBox
 
 
 
-        private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
+        private void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
-            if (e.LeftButton == MouseButtonState.Released || e.RightButton == MouseButtonState.Released)
+            if (e.LeftButton == MouseButtonState.Pressed || e.RightButton == MouseButtonState.Pressed)
             {
                 answer.TimeChanged = DateTime.Now;
                 answer.EmployeeId = Model.EmployeeId;
@@ -153,7 +153,7 @@ namespace FlexyBox
                 }
 
 
-                if (e.LeftButton == MouseButtonState.Released)
+                if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     if (answer.Answer == EnumAnswer.Done)
                         answer.Answer = EnumAnswer.NotDone;
