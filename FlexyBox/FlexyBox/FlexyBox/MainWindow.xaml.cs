@@ -27,6 +27,7 @@ namespace FlexyBox
     /// </summary>
     public partial class MainWindow : Window
     {
+      
         public MainWindowViewModel Model
         {
             get { return DataContext as MainWindowViewModel; }
@@ -106,8 +107,10 @@ namespace FlexyBox
           
                 LogWindow popup = new LogWindow();
                 popup.ShowDialog();
-               
+              
         }
+               
+        
         private void CheckBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
