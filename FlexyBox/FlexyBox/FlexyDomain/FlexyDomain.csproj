@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201411111243411_Parentquestion.Designer.cs">
       <DependentUpon>201411111243411_Parentquestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411120818308_rmvChildQuestion.cs" />
+    <Compile Include="Migrations\201411120818308_rmvChildQuestion.Designer.cs">
+      <DependentUpon>201411120818308_rmvChildQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -128,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411111243411_Parentquestion.resx">
       <DependentUpon>201411111243411_Parentquestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411120818308_rmvChildQuestion.resx">
+      <DependentUpon>201411120818308_rmvChildQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
