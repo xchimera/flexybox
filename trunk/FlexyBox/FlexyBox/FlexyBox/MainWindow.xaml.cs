@@ -118,7 +118,8 @@ namespace FlexyBox
                 answer.IsLog = true;
                 using (var ctx = new FlexyboxContext())
                 {
-                    ctx.SaveEntity<StepAnswer>(answer.Entity);
+                    if (!ctx.SaveEntity<StepAnswer>(answer.Entity))
+                        MessageBox.Show("Fejl i at gemme loggen");
                 }
 
                 if (e.LeftButton == MouseButtonState.Released)
@@ -155,7 +156,8 @@ namespace FlexyBox
                 };
                 using (var ctx = new FlexyboxContext())
                 {
-                    ctx.SaveEntity<StepAnswer>(newAnswer);
+                    if (!ctx.SaveEntity<StepAnswer>(newAnswer))
+                        MessageBox.Show("Fejl i at gemme ny svar entitet");
                 }
                 foreach (var group in Model.Groups)
                 {
