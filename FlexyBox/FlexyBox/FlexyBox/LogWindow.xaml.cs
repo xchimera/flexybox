@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace FlexyBox
     /// <summary>
     /// Interaction logic for LogWindow.xaml
     /// </summary>
+    /// 
     public partial class LogWindow : Window
     {
         public LogWindow()
@@ -24,9 +26,9 @@ namespace FlexyBox
             InitializeComponent();
             LostFocus += LogWindow_LostFocus;
         }
-
         void LogWindow_LostFocus(object sender, RoutedEventArgs e)
         {
+
             Close();
         }
     }
