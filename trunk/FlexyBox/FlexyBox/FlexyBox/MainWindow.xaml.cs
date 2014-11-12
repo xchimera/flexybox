@@ -187,7 +187,8 @@ namespace FlexyBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LogWindow popup = new LogWindow();       
+
+            LogWindow popup = new LogWindow();
             popup.ShowDialog();
         }
 
