@@ -8,67 +8,68 @@
         </Style>
 
         <DataTemplate x:Key="GroupQuestionTemplate">
-        <Border BorderBrush="DarkSlateBlue" BorderThickness="1">
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsChild}" Value="True">
-                            <Setter Property="Margin" Value="15,0,0,0"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-            <DockPanel Margin="10">
-                <Button Content="Log" DockPanel.Dock="Top" HorizontalAlignment="Right"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
-                <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                    <Image Name="CheckBox" Width="32" MouseDown="CheckBox_MouseDown" Margin="5,0,0,0">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="Done">
-                                        <Setter Property="Source" Value="/Icons/check48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="NotDone">
-                                        <Setter Property="Source" Value="/Icons/delete48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="NotApplicable">
-                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Answer.Answer}" Value="NotAnswered">
-                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                </DockPanel>
-                <StackPanel>
-                    <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
-                    <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="IsEnabled" Value="False"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Answer.Answer}" Value="NotAnswered">
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Answer.Answer}" Value="NotApplicable">
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-                </StackPanel>
+            <Border BorderBrush="DarkSlateBlue" Margin="5" Background="AliceBlue">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChild}" Value="True">
+                                <Setter Property="Margin" Value="15,0,0,0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <DockPanel Margin="10">
+                    <Button Content="Log" DockPanel.Dock="Top" HorizontalAlignment="Right"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
+                    <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
+                        <Image Name="CheckBox" Width="32" MouseDown="CheckBox_MouseDown" Margin="5,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Answer.State}" Value="Done">
+                                            <Setter Property="Source" Value="/Icons/check48x48.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Answer.State}" Value="NotDone">
+                                            <Setter Property="Source" Value="/Icons/delete48x48.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Answer.State}" Value="NotApplicable">
+                                            <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Answer.State}" Value="NotAnswered">
+                                            <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </DockPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                        <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Answer.State}" Value="NotAnswered">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Answer.State}" Value="NotApplicable">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+
+                        </TextBox>
+                    </StackPanel>
                     <ItemsControl ItemsSource="{Binding Children}" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </DockPanel>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DockPanel>
             </Border>
         </DataTemplate>
     </Window.Resources>
