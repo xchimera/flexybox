@@ -61,6 +61,8 @@ namespace FlexyBox.ViewModel
             }
         }
 
+        public BindingList<StepQuestionViewModel> Children { get; set; }
+
         public int Child { get; set; }
 
         public bool IsChild
@@ -73,7 +75,15 @@ namespace FlexyBox.ViewModel
             }
         }
 
-        public int Parent { get; set; }
+        public int Parent
+        {
+            get
+            {
+                if (Entity.Parent != null)
+                    return Entity.Parent.Id;
+                return 0;
+            }
+        }
         private StepAnswerViewModel _answer;
         public StepAnswerViewModel Answer
         {
@@ -97,6 +107,11 @@ namespace FlexyBox.ViewModel
         }
         public StepGroupViewModel Group { get; set; }
 
+
+        public StepQuestionViewModel()
+        {
+            Children = new BindingList<StepQuestionViewModel>();
+        }
         public void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
