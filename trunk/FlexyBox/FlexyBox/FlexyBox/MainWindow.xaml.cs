@@ -80,14 +80,17 @@ namespace FlexyBox
             var result = new List<StepGroupViewModel>();
 
             var groups = ctx.Query<StepGroup>()
-                .Include(x => x.Questions).ToList();
+                .Include(x => x.Questions)
+                .ToList();
 
             foreach (var group in groups)
             {
+
                 var groupVm = new StepGroupViewModel()
                 {
                     Id = group.Id,
                     Header = group.Header,
+
                     Questions = group.Questions.Select(x => new StepQuestionViewModel()
                     {
                         Entity = x,
@@ -98,6 +101,30 @@ namespace FlexyBox
                 groupVm.Questions.ForEach(x => x.Group = groupVm);
                 result.Add(groupVm);
             }
+
+            var toDelete = new List<StepQuestionViewModel>();
+            
+            
+            foreach(var group in result)
+            {
+                foreach(var question in group.Questions)
+                {
+                    if(question.Parent != 0)
+                    {
+                        
+                        group.Questions
+                            .SingleOrDefault(x => x.Id == question.Parent)
+                            .Children.Add(question);
+                        toDelete.Add(question);
+                    }
+                }
+            }
+
+            foreach(var question in toDelete)
+            {
+                result.ForEach(x => x.Questions.Remove(question));
+            }
+
             return result;
         }
 
@@ -136,7 +163,6 @@ namespace FlexyBox
                             break;
                         }
                     }
-
                 }
             }
             Model.CustomerViewModel = customer;
@@ -145,7 +171,7 @@ namespace FlexyBox
         }
 
 
-
+        
         private void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
@@ -228,7 +254,6 @@ namespace FlexyBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             LogWindow logWindow = new LogWindow();
             var loc = (sender as Button).PointToScreen(new Point(0, 0));
             logWindow.Left = loc.X - logWindow.Width;
