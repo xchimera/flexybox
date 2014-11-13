@@ -21,6 +21,17 @@ namespace FlexyBox.ViewModel
                 return Entity.Id;
             }
         }
+        public int QuestionId
+        {
+            get
+            {
+                return Entity.QuestionId;
+            }
+            set
+            {
+                Entity.QuestionId = value;
+            }
+        }
         public string Comment
         {
             get

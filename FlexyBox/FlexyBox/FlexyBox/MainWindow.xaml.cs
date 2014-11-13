@@ -117,7 +117,7 @@ namespace FlexyBox
                     Name = x.Name
                 }).Single();
 
-                var entityAnswers = ctx.Query<StepAnswer>().Include(x=> x.QuestionId).Where(x => x.CustomerFlowId == customer.Id && !x.IsLog).ToList();
+                var entityAnswers = ctx.Query<StepAnswer>().Where(x => x.CustomerFlowId == customer.Id && !x.IsLog).ToList();
 
                 groups = GetGroups(ctx);
                 answers = GetAnswers(ctx, entityAnswers);
@@ -129,9 +129,10 @@ namespace FlexyBox
                 {
                     foreach (var answer in answers)
                     {
-                        if (answer.Question.Id == question.Id)
+                        if (answer.QuestionId == question.Id)
                         {
                             question.Answer = answer;
+                            answer.Question = question;
                             break;
                         }
                     }
