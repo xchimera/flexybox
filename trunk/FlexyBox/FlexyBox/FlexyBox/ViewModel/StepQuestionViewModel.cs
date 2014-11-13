@@ -83,6 +83,7 @@ namespace FlexyBox.ViewModel
                     return Entity.Parent.Id;
                 return 0;
             }
+
         }
         private StepAnswerViewModel _answer;
         public StepAnswerViewModel Answer

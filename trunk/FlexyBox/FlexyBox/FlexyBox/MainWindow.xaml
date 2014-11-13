@@ -9,7 +9,7 @@
         </Style>
 
         <DataTemplate x:Key="GroupQuestionTemplate">
-            <Border BorderBrush="DarkSlateBlue" Margin="5" Background="AliceBlue">
+            <Border BorderBrush="DarkSlateBlue" Margin="2" Background="AntiqueWhite">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
@@ -20,9 +20,9 @@
                     </Style>
                 </Border.Style>
                 <DockPanel Margin="10">
-                    <Button Content="Log" DockPanel.Dock="Top" HorizontalAlignment="Right"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
+                    <Button Content="Log" DockPanel.Dock="Right" VerticalAlignment="Top"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
                     <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                        <Image Name="CheckBox" Width="32" MouseDown="CheckBox_MouseDown" Margin="5,0,0,0">
+                        <Image Name="CheckBox" Width="32" MouseDown="CheckBox_MouseDown" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5,20,0,0">
                             <Image.Style>
                                 <Style TargetType="{x:Type Image}">
                                     <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
@@ -46,7 +46,7 @@
                     </DockPanel>
                     <StackPanel>
                         <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
-                        <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
+                        <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -63,7 +63,8 @@
 
                         </TextBox>
                     </StackPanel>
-                    <ItemsControl ItemsSource="{Binding Children}" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
+                    
+                    <ItemsControl ItemsSource="{Binding Children}" Margin="0,55,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
