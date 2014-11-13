@@ -103,15 +103,14 @@ namespace FlexyBox
             }
 
             var toDelete = new List<StepQuestionViewModel>();
-            
-            
-            foreach(var group in result)
+
+
+            foreach (var group in result)
             {
-                foreach(var question in group.Questions)
+                foreach (var question in group.Questions)
                 {
-                    if(question.Parent != 0)
+                    if (question.Parent != 0)
                     {
-                        
                         group.Questions
                             .SingleOrDefault(x => x.Id == question.Parent)
                             .Children.Add(question);
@@ -120,11 +119,10 @@ namespace FlexyBox
                 }
             }
 
-            foreach(var question in toDelete)
+            foreach (var question in toDelete)
             {
                 result.ForEach(x => x.Questions.Remove(question));
             }
-
             return result;
         }
 
@@ -154,24 +152,29 @@ namespace FlexyBox
             {
                 foreach (var question in group.Questions)
                 {
-                    foreach (var answer in answers)
-                    {
-                        if (answer.QuestionId == question.Id)
-                        {
-                            question.Answer = answer;
-                            answer.Question = question;
-                            break;
-                        }
-                    }
+                    foreach(var child in question.Children)
+                         child.Answer = InsertAnswers(child, answers);
+                    question.Answer = InsertAnswers(question, answers);
                 }
             }
             Model.CustomerViewModel = customer;
             Model.Groups = groups.ToBindingList();
 
         }
+        private StepAnswerViewModel InsertAnswers( StepQuestionViewModel question, List<StepAnswerViewModel> answers)
+        {
+            foreach (var answer in answers)
+            {
+                if (answer.QuestionId == question.Id)
+                {
+                    question.Answer = answer;
+                    answer.Question = question;
+                    break;
+                }
+            }
+            return question.Answer;
+        }
 
-
-        
         private void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var answer = ((sender as Image).DataContext as StepQuestionViewModel).Answer;
@@ -199,25 +202,25 @@ namespace FlexyBox
                     TimeChanged = DateTime.Now
 
                 };
-
+                var question = answer.Question;
                 answer = new StepAnswerViewModel() { Entity = newAnswer, Question = answer.Question };
-                StepQuestionViewModel usedQuestion = null;
+                question.Answer = answer;
 
-                foreach (var group in Model.Groups)
-                {
-                    var shouldBreak = false;
-                    foreach (var question in group.Questions)
-                    {
-                        if (question.Id == answer.Question.Id)
-                        {
-                            question.Answer = answer;
-                            shouldBreak = true;
-                            break;
-                        }
-                    }
-                    if (shouldBreak)
-                        break;
-                }
+                //foreach (var group in Model.Groups)
+                //{
+                //    var shouldBreak = false;
+                //    foreach (var question in group.Questions)
+                //    {
+                //        if (question.Id == answer.Question.Id)
+                //        {
+                //            question.Answer = answer;
+                //            shouldBreak = true;
+                //            break;
+                //        }
+                //    }
+                //    if (shouldBreak)
+                //        break;
+                //}
 
 
                 if (e.LeftButton == MouseButtonState.Pressed)
@@ -259,7 +262,7 @@ namespace FlexyBox
             logWindow.Left = loc.X - logWindow.Width;
             logWindow.Top = loc.Y;
             logWindow.Show();
-           
+
         }
 
         public class MainWindowViewModel
