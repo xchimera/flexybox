@@ -5,12 +5,15 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Height="300" Width="300">
-    
-       <TreeView>
-        <TreeViewItem Header="Log" x:Name="LogTree" FontSize="15" Margin="0,0,0,0"
-                  x:FieldModifier="private">
-            <TreeViewItem TextBlock.FontStyle="Italic" 
-                    Header="Loading..."/>
-        </TreeViewItem>
-    </TreeView>
+    <ScrollViewer Margin="5">
+        <TreeView>
+            <TreeViewItem Header="Log" ItemsSource="{Binding Log}">
+                <TreeViewItem.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </TreeViewItem.ItemTemplate>
+            </TreeViewItem>
+        </TreeView>
+    </ScrollViewer>
 </Window>
