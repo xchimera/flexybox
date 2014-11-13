@@ -233,7 +233,7 @@ namespace FlexyBox
             var loc = (sender as Button).PointToScreen(new Point(0, 0));
             logWindow.Left = loc.X - logWindow.Width;
             logWindow.Top = loc.Y;
-            logWindow.ShowDialog();
+            logWindow.Show();
            
         }
 
