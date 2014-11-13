@@ -110,7 +110,7 @@ namespace FlexyBox
             List<StepGroupViewModel> groups;
             using (var ctx = new FlexyboxContext())
             {
-                customer= ctx.QueryFromID<CustomerFlow>(customerId).Select(x=> new CustomerFlowViewModel()
+                customer = ctx.QueryFromID<CustomerFlow>(customerId).Select(x => new CustomerFlowViewModel()
                 {
                     Id = x.Id,
                     CustomerId = x.CustomerId,
@@ -121,7 +121,7 @@ namespace FlexyBox
 
                 groups = GetGroups(ctx);
                 answers = GetAnswers(ctx, entityAnswers);
-                
+
             }
             foreach (var group in groups)
             {
@@ -228,22 +228,26 @@ namespace FlexyBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LogWindow popup = new LogWindow();
-            popup.ShowDialog();
+
+            LogWindow logWindow = new LogWindow();
+            var loc = (sender as Button).PointToScreen(new Point(0, 0));
+            logWindow.Left = loc.X - logWindow.Width;
+            logWindow.Top = loc.Y;
+            logWindow.ShowDialog();
+           
         }
 
-    }
-
-    public class MainWindowViewModel
-    {
-        public int EmployeeId { get; set; }
-        public BindingList<StepGroupViewModel> Groups { get; set; }
-        public CustomerFlowViewModel CustomerViewModel { get; set; }
-        public MainWindowViewModel(int employeeId)
+        public class MainWindowViewModel
         {
-            Groups = new BindingList<StepGroupViewModel>();
-            EmployeeId = employeeId;
-        }
+            public int EmployeeId { get; set; }
+            public BindingList<StepGroupViewModel> Groups { get; set; }
+            public CustomerFlowViewModel CustomerViewModel { get; set; }
+            public MainWindowViewModel(int employeeId)
+            {
+                Groups = new BindingList<StepGroupViewModel>();
+                EmployeeId = employeeId;
+            }
 
+        }
     }
 }

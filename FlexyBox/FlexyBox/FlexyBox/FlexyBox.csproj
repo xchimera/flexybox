@@ -47,7 +47,7 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender">
-      <HintPath>E:\EF Profiler\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\EntityFramework.Profiler-v2.0-Build-2238\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
