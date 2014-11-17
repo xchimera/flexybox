@@ -30,7 +30,7 @@ namespace FlexyBox
 
         void LogWindow_MouseLeave(object sender, MouseEventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }

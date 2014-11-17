@@ -206,23 +206,6 @@ namespace FlexyBox
                 answer = new StepAnswerViewModel() { Entity = newAnswer, Question = answer.Question };
                 question.Answer = answer;
 
-                //foreach (var group in Model.Groups)
-                //{
-                //    var shouldBreak = false;
-                //    foreach (var question in group.Questions)
-                //    {
-                //        if (question.Id == answer.Question.Id)
-                //        {
-                //            question.Answer = answer;
-                //            shouldBreak = true;
-                //            break;
-                //        }
-                //    }
-                //    if (shouldBreak)
-                //        break;
-                //}
-
-
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     if (answer.State == AnswerState.Done)
