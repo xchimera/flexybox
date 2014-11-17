@@ -44,9 +44,9 @@
                             </Image.Style>
                         </Image>
                     </DockPanel>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Header}" Margin="10,0,0,0" TextWrapping="Wrap"/>
-                        <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="10,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Header}" DockPanel.Dock="Top" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                        <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -62,15 +62,15 @@
                             </TextBox.Style>
 
                         </TextBox>
-                    </StackPanel>
+                    </DockPanel>
                     
-                    <ItemsControl ItemsSource="{Binding Children}" Margin="0,55,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
+                    <!--<ItemsControl ItemsSource="{Binding Children}" Margin="0,55,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+                    </ItemsControl>-->
                 </DockPanel>
             </Border>
         </DataTemplate>
@@ -99,6 +99,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
+                
         <TabControl Grid.Row="1" ItemsSource="{Binding Groups}" TabStripPlacement="Left">
             <TabControl.ItemTemplate>
                 <DataTemplate>
@@ -109,7 +110,6 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding Questions}" ItemTemplate="{StaticResource ResourceKey=GroupQuestionTemplate}">
-
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
