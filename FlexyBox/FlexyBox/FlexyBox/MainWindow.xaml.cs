@@ -240,7 +240,8 @@ namespace FlexyBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LogWindow logWindow = new LogWindow();
+            var questionId = ((sender as Button).DataContext as StepQuestionViewModel).Id;
+            LogWindow logWindow = new LogWindow(questionId);
             var loc = (sender as Button).PointToScreen(new Point(0, 0));
             logWindow.Left = loc.X - logWindow.Width;
             logWindow.Top = loc.Y;

@@ -1,4 +1,6 @@
 ﻿using FlexyBox.ViewModel;
+using FlexyDomain;
+using FlexyDomain.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FlexyDomain.Extensions;
 
 namespace FlexyBox
 {
@@ -40,6 +43,20 @@ namespace FlexyBox
             Model = new LogWindowViewModel();
             Model.QuestionId = questionId; 
             MouseLeave += LogWindow_MouseLeave;
+        }
+
+        private void LogLoad()
+        {
+            List<StepAnswerViewModel> result = new List<StepAnswerViewModel>();
+            using(FlexyboxContext ctx = new FlexyboxContext())
+            {
+                result = ctx.Query<StepAnswer>().Where(x => x.IsLog == true && x.QuestionId==Model.QuestionId).Select(x => new StepAnswerViewModel()
+                    {
+                        Entity = x
+                    }).ToList();
+            }
+
+            Model.LogGroups = result.OrderByDescending(x=> x.TimeChanged).ToBindingList();
         }
 
         void LogWindow_MouseLeave(object sender, MouseEventArgs e)
