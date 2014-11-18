@@ -79,7 +79,6 @@
       <DependentUpon>QuestionUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CustomerFlowViewModel.cs" />
-    <Compile Include="ViewModel\StepLogViewModel.cs" />
     <Compile Include="ViewModel\StepQuestionViewModel.cs" />
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />

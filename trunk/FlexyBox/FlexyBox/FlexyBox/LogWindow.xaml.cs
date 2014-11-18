@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FlexyBox.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +23,39 @@ namespace FlexyBox
     /// 
     public partial class LogWindow : Window
     {
-
-        public LogWindow()
+        public LogWindowViewModel Model
+        {
+            get
+            {
+                return DataContext as LogWindowViewModel;
+            }
+            set
+            {
+                DataContext = value;
+            }
+        }
+        public LogWindow(int questionId)
         {
             InitializeComponent();
+            Model = new LogWindowViewModel();
+            Model.QuestionId = questionId; 
             MouseLeave += LogWindow_MouseLeave;
         }
 
         void LogWindow_MouseLeave(object sender, MouseEventArgs e)
         {
             this.Close();
+        }
+    }
+
+    public class LogWindowViewModel
+    {
+        public BindingList<StepAnswerViewModel> LogGroups { get; set; }
+        public int QuestionId { get; set; }
+
+        public LogWindowViewModel()
+        {
+            LogGroups = new BindingList<StepAnswerViewModel>();
         }
     }
 }

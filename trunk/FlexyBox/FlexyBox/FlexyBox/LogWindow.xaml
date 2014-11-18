@@ -10,7 +10,7 @@
             <TreeViewItem Header="Log" ItemsSource="{Binding Log}">
                 <TreeViewItem.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
+                        <TextBlock Text="{Binding }"/>
                     </DataTemplate>
                 </TreeViewItem.ItemTemplate>
             </TreeViewItem>
