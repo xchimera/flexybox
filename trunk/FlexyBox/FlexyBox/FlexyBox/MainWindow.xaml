@@ -121,7 +121,6 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-
                 </DataTemplate>
 
             </TabControl.ContentTemplate>
