@@ -9,6 +9,9 @@
         </Style>
 
         <DataTemplate x:Key="GroupQuestionTemplate">
+            <StackPanel>
+                
+            
             <Border BorderBrush="DarkSlateBlue" Margin="2" Background="AntiqueWhite">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -64,15 +67,17 @@
                         </TextBox>
                     </DockPanel>
                     
-                    <!--<ItemsControl ItemsSource="{Binding Children}" Margin="0,55,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
+                    <!---->
+                </DockPanel>
+            </Border>
+                <ItemsControl Margin="80,0,0,0" ItemsSource="{Binding Children}" DockPanel.Dock="Bottom" ItemTemplate="{DynamicResource ResourceKey=GroupQuestionTemplate}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                    </ItemsControl>-->
-                </DockPanel>
-            </Border>
+                    </ItemsControl>
+            </StackPanel>
         </DataTemplate>
     </Window.Resources>
     <Grid>
