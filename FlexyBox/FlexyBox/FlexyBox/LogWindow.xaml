@@ -6,10 +6,10 @@
         WindowStyle="None"
         Height="300" Width="300">
     <ScrollViewer Margin="8">
-        <TreeView Name="log" ItemsSource="{Binding LogGroups}">
-            <TreeView.ItemTemplate>
+        <TreeView ItemsSource="{Binding LogGroups}">
+            <TreeView.ItemTemplate >
                 <HierarchicalDataTemplate>
-                    <TextBlock Text="{Binding TimeChanged}"/>
+                    <TextBlock Text="{Binding TimeChanged}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
