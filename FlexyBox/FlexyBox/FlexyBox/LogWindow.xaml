@@ -5,15 +5,13 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Height="300" Width="300">
-    <ScrollViewer Margin="5">
-        <TreeView>
-            <TreeViewItem Header="Log" ItemsSource="{Binding Log}">
-                <TreeViewItem.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding }"/>
-                    </DataTemplate>
-                </TreeViewItem.ItemTemplate>
-            </TreeViewItem>
+    <ScrollViewer Margin="8">
+        <TreeView Name="log" ItemsSource="{Binding LogGroups}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <TextBlock Text="{Binding TimeChanged}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
         </TreeView>
     </ScrollViewer>
 </Window>

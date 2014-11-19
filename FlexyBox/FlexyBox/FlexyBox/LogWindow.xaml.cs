@@ -43,6 +43,7 @@ namespace FlexyBox
             Model = new LogWindowViewModel();
             Model.QuestionId = questionId; 
             MouseLeave += LogWindow_MouseLeave;
+            LogLoad();
         }
 
         private void LogLoad()
