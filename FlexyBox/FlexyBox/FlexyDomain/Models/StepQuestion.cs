@@ -16,6 +16,7 @@ namespace FlexyDomain.Models
         public int Order { get; set; }
         public StepQuestion Parent { get; set; }
         public IList<StepQuestion> Children { get; set; }
+        public Product Product { get; set; }
 
         //public StepQuestion ChildQuestion { get; set; }
         public int GroupId { get; set; }
