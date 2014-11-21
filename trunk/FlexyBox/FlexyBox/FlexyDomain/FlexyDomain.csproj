@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201411121424443_michael.Designer.cs">
       <DependentUpon>201411121424443_michael.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411211218550_Product.cs" />
+    <Compile Include="Migrations\201411211218550_Product.Designer.cs">
+      <DependentUpon>201411211218550_Product.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -104,6 +108,7 @@
       <DependentUpon>201410281157180_AddPersistensy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StepAnswer.cs" />
     <Compile Include="Models\StepGroup.cs" />
@@ -149,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411121424443_michael.resx">
       <DependentUpon>201411121424443_michael.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411211218550_Product.resx">
+      <DependentUpon>201411211218550_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
