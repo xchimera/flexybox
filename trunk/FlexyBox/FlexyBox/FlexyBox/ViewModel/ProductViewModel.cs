@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlexyDomain.Models
+namespace FlexyBox.ViewModel
 {
-    public class Product : EntityPersist
+    public class ProductViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public IList<CustomerFlow> Customers { get; set; }
     }
 }

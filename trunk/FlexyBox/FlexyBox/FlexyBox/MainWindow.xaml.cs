@@ -126,6 +126,29 @@ namespace FlexyBox
             return result;
         }
 
+        private CustomerFlowViewModel GetCustomer(CustomerFlow customer)
+        {
+            var customerVM = new CustomerFlowViewModel()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                CustomerId = customer.CustomerId,
+            };
+
+            foreach(var product in customer.Products)
+            {
+                customerVM.Products.Add(new ProductViewModel()
+                    {
+                        Id = product.Id,
+                        Name = product.Name
+                    });
+            }
+
+            return customerVM;
+
+        }
+
+
         private void Reload(int customerId)
         {
             Model.Groups.Clear();
@@ -135,13 +158,10 @@ namespace FlexyBox
             List<StepGroupViewModel> groups;
             using (var ctx = new FlexyboxContext())
             {
-                customer = ctx.QueryFromID<CustomerFlow>(customerId).Select(x => new CustomerFlowViewModel()
-                {
-                    Id = x.Id,
-                    CustomerId = x.CustomerId,
-                    Name = x.Name
-                }).Single();
+                var entCustomer = ctx.Query<CustomerFlow>()
+                    .Include(x => x.Products).Single();
 
+                customer = GetCustomer(entCustomer);
                 var entityAnswers = ctx.Query<StepAnswer>().Where(x => x.CustomerFlowId == customer.Id && !x.IsLog).ToList();
 
                 groups = GetGroups(ctx);

@@ -11,6 +11,11 @@ namespace FlexyBox.ViewModel
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public string Name { get; set; }
-        public IList<StepAnswerViewModel> Answer { get; set; }
+        public List<ProductViewModel> Products { get; set; }
+
+        public CustomerFlowViewModel()
+        {
+            Products = new List<ProductViewModel>();
+        }
     }
 }
