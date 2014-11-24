@@ -12,5 +12,6 @@ namespace FlexyDomain.Models
         public string Name { get; set; }
         public IList<StepAnswer> Answers { get; set; }
         public IList<Product> Products { get; set; }
+        public IList<UploadedFiles> FlowFiles { get; set; }
     }
 }

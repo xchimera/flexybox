@@ -117,6 +117,7 @@ namespace FlexyBox
                         toDelete.Add(question);
                     }
                 }
+
             }
 
             foreach (var question in toDelete)
