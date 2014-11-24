@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201411211245264_Product4.Designer.cs">
       <DependentUpon>201411211245264_Product4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411241010212_files.cs" />
+    <Compile Include="Migrations\201411241010212_files.Designer.cs">
+      <DependentUpon>201411241010212_files.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -125,6 +129,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\UploadedFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StepAnswer.cs" />
     <Compile Include="Models\StepGroup.cs" />
@@ -185,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411211245264_Product4.resx">
       <DependentUpon>201411211245264_Product4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411241010212_files.resx">
+      <DependentUpon>201411241010212_files.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
