@@ -5,13 +5,17 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Height="300" Width="300">
-    <ScrollViewer Margin="8">
-        <TreeView ItemsSource="{Binding LogGroups}">
-            <TreeView.ItemTemplate >
-                <HierarchicalDataTemplate>
-                    <TextBlock Text="{Binding TimeChanged}" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-    </ScrollViewer>
+
+    <Window.Resources>
+        <DataTemplate x:Key="log">
+            <Expander Header="{Binding TimeChanged, StringFormat=dd-MM-yy HH:mm}" Width="280">
+                <StackPanel>
+                    <TextBlock Text="{Binding Answer}" />
+                </StackPanel>
+            </Expander>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <ListView ItemsSource="{Binding LogGroups}" ItemTemplate="{StaticResource ResourceKey=log}">
+    </ListView>
 </Window>
