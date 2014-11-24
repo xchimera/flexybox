@@ -5,13 +5,34 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Height="300" Width="300">
-
+    
     <Window.Resources>
         <DataTemplate x:Key="log">
             <Expander Header="{Binding TimeChanged, StringFormat=dd-MM-yy HH:mm}" Width="280">
-                <StackPanel>
-                    <TextBlock Text="{Binding Answer}" />
-                </StackPanel>
+                <DockPanel>
+                    <Image Name="CheckBox" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=State}" Value="Done">
+                                        <Setter Property="Source"  Value="/Icons/check48x48.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=State}" Value="NotDone">
+                                        <Setter Property="Source" Value="/Icons/delete48x48.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=State}" Value="NotApplicable">
+                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=State}" Value="NotAnswered">
+                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <TextBlock FontSize="15" Margin="10,0,0,0" Text="{Binding Comment}"/>
+                </DockPanel>
             </Expander>
         </DataTemplate>
     </Window.Resources>

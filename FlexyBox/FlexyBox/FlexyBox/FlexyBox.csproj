@@ -67,7 +67,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WpfDocumentPreviewer">
-      <HintPath>..\..\..\..\..\Google Drev\FlexyBox\WpfDocumentPreviewer.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Google Drev\FlexyBox\WpfDocumentPreviewer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
