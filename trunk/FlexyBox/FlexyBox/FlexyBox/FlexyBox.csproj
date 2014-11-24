@@ -66,12 +66,18 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfDocumentPreviewer">
+      <HintPath>..\..\..\..\..\Google Drev\FlexyBox\WpfDocumentPreviewer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileManager.xaml.cs">
+      <DependentUpon>FileManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
@@ -83,6 +89,11 @@
     <Compile Include="ViewModel\StepQuestionViewModel.cs" />
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />
+    <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
+    <Page Include="FileManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +165,12 @@
     <Resource Include="Icons\check48x48.png" />
     <Resource Include="Icons\checkbox48x48.png" />
     <Resource Include="Icons\delete48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\FileManager-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\File-48x48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

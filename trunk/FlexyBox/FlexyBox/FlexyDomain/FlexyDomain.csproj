@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201411241010212_files.Designer.cs">
       <DependentUpon>201411241010212_files.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411241202087_uploadedFilesCustomerLink.cs" />
+    <Compile Include="Migrations\201411241202087_uploadedFilesCustomerLink.Designer.cs">
+      <DependentUpon>201411241202087_uploadedFilesCustomerLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411241010212_files.resx">
       <DependentUpon>201411241010212_files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411241202087_uploadedFilesCustomerLink.resx">
+      <DependentUpon>201411241202087_uploadedFilesCustomerLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
