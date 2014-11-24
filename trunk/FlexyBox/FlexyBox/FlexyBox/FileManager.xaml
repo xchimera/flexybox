@@ -3,25 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:WpfDocumentPreviewer="clr-namespace:WpfDocumentPreviewer;assembly=WpfDocumentPreviewer"
         Title="FileManager" Height="400" Width="600">
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
-            <Button Padding="15,5,15,5">OK</Button>
-            <Button Padding="15,5,15,5" Margin="10,0,0,0" IsCancel="True">Annuller</Button>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="Ribbon"  SelectedIndex="0">
+            <RibbonTab Header="Home" KeyTip="H" >
+                <RibbonGroup x:Name="GroupHome" Header="Filer" >
+                    <RibbonButton Name="AddFile" LargeImageSource="Icons\AddFile-48x48.png" Label="Tilføj Fil" Click="AddFile_Click"/>
+                    <RibbonButton Name="RemoveFile" LargeImageSource="Icons\DeleteFile-48x48.png" Label="Fjern fil" Click="RemoveFile_Click"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <DockPanel Grid.Row="1" Margin="10">
+            <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button Padding="15,5,15,5">OK</Button>
+                <Button Padding="15,5,15,5" Margin="10,0,0,0" IsCancel="True">Annuller</Button>
+            </DockPanel>
+
+            <StackPanel DockPanel.Dock="Left">
+                <ListBox SelectionChanged="ListBox_SelectionChanged" ItemsSource="{Binding Files}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Right">
+                <FlowDocumentPageViewer Name="viewer"></FlowDocumentPageViewer>
+            </StackPanel>
         </DockPanel>
-        
-        <StackPanel DockPanel.Dock="Left">
-            <ListBox SelectionChanged="ListBox_SelectionChanged" ItemsSource="{Binding Files}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        
-        <StackPanel DockPanel.Dock="Right">
-            <!--<WpfDocumentPreviewer:PreviewerControl  x:Name="previewControl" />-->
-        </StackPanel>
-    </DockPanel>
-    
+    </Grid>
 </Window>

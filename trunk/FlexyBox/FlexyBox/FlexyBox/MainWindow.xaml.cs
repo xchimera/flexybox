@@ -135,6 +135,7 @@ namespace FlexyBox
                 Id = customer.Id,
                 Name = customer.Name,
                 CustomerId = customer.CustomerId,
+                Entity =  customer,
             };
 
             foreach (var product in customer.Products)
@@ -275,7 +276,7 @@ namespace FlexyBox
 
         private void ManageFiles_Click(object sender, RoutedEventArgs e)
         {
-            FileManager fileManager = new FileManager(Model.CustomerViewModel.Id);
+            FileManager fileManager = new FileManager(Model.CustomerViewModel);
             fileManager.ShowDialog();
         }
     }

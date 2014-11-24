@@ -31,7 +31,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <TextBlock FontSize="15" Margin="10,0,0,0" Text="{Binding Comment}"/>
+                    <TextBlock FontSize="15" Margin="10,0,0,0" Text="{Binding Comment}" TextTrimming="WordEllipsis"/>
                 </DockPanel>
             </Expander>
         </DataTemplate>
