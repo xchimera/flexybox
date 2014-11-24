@@ -41,7 +41,7 @@ namespace FlexyBox
         {
             InitializeComponent();
             Model = new LogWindowViewModel();
-            Model.QuestionId = questionId; 
+            Model.QuestionId = questionId;
             MouseLeave += LogWindow_MouseLeave;
             LogLoad();
         }
@@ -49,15 +49,15 @@ namespace FlexyBox
         private void LogLoad()
         {
             List<StepAnswerViewModel> result = new List<StepAnswerViewModel>();
-            using(FlexyboxContext ctx = new FlexyboxContext())
+            using (FlexyboxContext ctx = new FlexyboxContext())
             {
-                result = ctx.Query<StepAnswer>().Where(x => x.IsLog == true && x.QuestionId==Model.QuestionId).Select(x => new StepAnswerViewModel()
+                result = ctx.Query<StepAnswer>().Where(x => x.IsLog == true && x.QuestionId == Model.QuestionId).Select(x => new StepAnswerViewModel()
                     {
                         Entity = x
                     }).ToList();
             }
 
-            Model.LogGroups = result.OrderByDescending(x=> x.TimeChanged).ToBindingList();
+            Model.LogGroups = result.OrderByDescending(x => x.TimeChanged).ToBindingList();
         }
 
         void LogWindow_MouseLeave(object sender, MouseEventArgs e)
