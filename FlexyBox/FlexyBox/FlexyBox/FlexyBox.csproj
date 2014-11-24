@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddFile.xaml.cs">
+      <DependentUpon>AddFile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileManager.xaml.cs">
       <DependentUpon>FileManager.xaml</DependentUpon>
     </Compile>
@@ -90,6 +93,10 @@
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />
     <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
+    <Page Include="AddFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FileManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +178,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\File-48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\AddFile-48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\DeleteFile-48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\FindFile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

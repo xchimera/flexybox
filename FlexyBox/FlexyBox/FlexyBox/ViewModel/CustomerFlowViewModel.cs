@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlexyDomain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace FlexyBox.ViewModel
 {
     public class CustomerFlowViewModel
     {
+        public CustomerFlow Entity { get; set; }
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public string Name { get; set; }
