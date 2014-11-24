@@ -76,9 +76,22 @@ namespace FlexyBox
             return result;
         }
 
-        private List<StepGroupViewModel> GetGroups(FlexyboxContext ctx)
+        private List<StepQuestionViewModel> GetQuestions(FlexyboxContext ctx, CustomerFlow customer)
+        {
+            var result = ctx.Query<StepQuestion>()
+            //    .Where(x => customer.Products.Any(c => c == x.Product))
+                .Select(x => new StepQuestionViewModel()
+                {
+                    Entity = x
+                }).ToList();
+            return result;
+        }
+
+        private List<StepGroupViewModel> GetGroups(FlexyboxContext ctx, CustomerFlow customer)
         {
             var result = new List<StepGroupViewModel>();
+
+            var questions = GetQuestions(ctx, customer);
 
             var groups = ctx.Query<StepGroup>()
                 .Include(x => x.Questions)
@@ -167,7 +180,7 @@ namespace FlexyBox
                 customer = GetCustomer(entCustomer);
                 var entityAnswers = ctx.Query<StepAnswer>().Where(x => x.CustomerFlowId == customer.Id && !x.IsLog).ToList();
 
-                groups = GetGroups(ctx);
+                groups = GetGroups(ctx, entCustomer);
                 answers = GetAnswers(ctx, entityAnswers);
 
             }
