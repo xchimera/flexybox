@@ -11,6 +11,6 @@ namespace FlexyDomain.Models
     {
         public string Name { get; set; }
         public virtual byte[] File { get; set; }
-
+        public CustomerFlow Customer { get; set; }
     }
 }

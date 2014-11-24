@@ -1,0 +1,27 @@
+﻿<Window x:Class="FlexyBox.FileManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:WpfDocumentPreviewer="clr-namespace:WpfDocumentPreviewer;assembly=WpfDocumentPreviewer"
+        Title="FileManager" Height="400" Width="600">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+            <Button Padding="15,5,15,5">OK</Button>
+            <Button Padding="15,5,15,5" Margin="10,0,0,0" IsCancel="True">Annuller</Button>
+        </DockPanel>
+        
+        <StackPanel DockPanel.Dock="Left">
+            <ListBox SelectionChanged="ListBox_SelectionChanged" ItemsSource="{Binding Files}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+        <StackPanel DockPanel.Dock="Right">
+            <!--<WpfDocumentPreviewer:PreviewerControl  x:Name="previewControl" />-->
+        </StackPanel>
+    </DockPanel>
+    
+</Window>

@@ -20,13 +20,14 @@ using System.Collections.ObjectModel;
 using FlexyDomain.Extensions;
 using System.Diagnostics;
 using System.Data.Entity;
+using System.Windows.Controls.Ribbon;
 
 namespace FlexyBox
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : RibbonWindow
     {
 
         public MainWindowViewModel Model
@@ -136,7 +137,7 @@ namespace FlexyBox
                 CustomerId = customer.CustomerId,
             };
 
-            foreach(var product in customer.Products)
+            foreach (var product in customer.Products)
             {
                 customerVM.Products.Add(new ProductViewModel()
                     {
@@ -173,8 +174,8 @@ namespace FlexyBox
             {
                 foreach (var question in group.Questions)
                 {
-                    foreach(var child in question.Children)
-                         child.Answer = InsertAnswers(child, answers);
+                    foreach (var child in question.Children)
+                        child.Answer = InsertAnswers(child, answers);
                     question.Answer = InsertAnswers(question, answers);
                 }
             }
@@ -182,7 +183,7 @@ namespace FlexyBox
             Model.Groups = groups.ToBindingList();
 
         }
-        private StepAnswerViewModel InsertAnswers( StepQuestionViewModel question, List<StepAnswerViewModel> answers)
+        private StepAnswerViewModel InsertAnswers(StepQuestionViewModel question, List<StepAnswerViewModel> answers)
         {
             foreach (var answer in answers)
             {
@@ -270,17 +271,24 @@ namespace FlexyBox
 
         }
 
-        public class MainWindowViewModel
-        {
-            public int EmployeeId { get; set; }
-            public BindingList<StepGroupViewModel> Groups { get; set; }
-            public CustomerFlowViewModel CustomerViewModel { get; set; }
-            public MainWindowViewModel(int employeeId)
-            {
-                Groups = new BindingList<StepGroupViewModel>();
-                EmployeeId = employeeId;
-            }
 
+
+        private void ManageFiles_Click(object sender, RoutedEventArgs e)
+        {
+            FileManager fileManager = new FileManager(Model.CustomerViewModel.Id);
+            fileManager.ShowDialog();
         }
+    }
+    public class MainWindowViewModel
+    {
+        public int EmployeeId { get; set; }
+        public BindingList<StepGroupViewModel> Groups { get; set; }
+        public CustomerFlowViewModel CustomerViewModel { get; set; }
+        public MainWindowViewModel(int employeeId)
+        {
+            Groups = new BindingList<StepGroupViewModel>();
+            EmployeeId = employeeId;
+        }
+
     }
 }
