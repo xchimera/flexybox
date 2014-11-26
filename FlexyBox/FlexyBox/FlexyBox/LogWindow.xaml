@@ -9,7 +9,7 @@
     
     <Window.Resources>
         <DataTemplate x:Key="log">
-            <Expander BorderBrush="DarkRed" Header="{Binding TimeChanged, StringFormat={}{dd-MM-yy HH:mm}}" Width="280">
+            <Expander Background="AntiqueWhite" Header="{Binding TimeChanged, StringFormat={}{dd-MM-yy HH:mm}}" Width="280">
                     <DockPanel>
                     <Image Name="CheckBox" Width="22" Margin="4,4,4,4" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Image.Style>
