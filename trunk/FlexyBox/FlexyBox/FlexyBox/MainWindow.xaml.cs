@@ -354,6 +354,12 @@ namespace FlexyBox
             FileManager fileManager = new FileManager(Model.CustomerViewModel);
             fileManager.ShowDialog();
         }
+
+        private void EditCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if (new NewCustomer(Model.CustomerViewModel.Entity, Model.EmployeeId).ShowDialog() == true)
+                Reload(Model.CustomerViewModel.Id);
+        }
     }
     public class MainWindowViewModel
     {

@@ -88,7 +88,8 @@
         <Ribbon x:Name="Ribbon"  SelectedIndex="0">
             <RibbonTab Header="Home" KeyTip="H" >
                 <RibbonGroup x:Name="GroupHome" Header="Flexy" >
-                    <RibbonButton Name="ManageFiles" LargeImageSource="Icons\File-48x48.png" Label="Filer" Click="ManageFiles_Click"/>                    
+                    <RibbonButton Name="ManageFiles" LargeImageSource="Icons\File-48x48.png" Label="Filer" Click="ManageFiles_Click"/>  
+                    <RibbonButton Name="EditCustomer" LargeImageSource="Icons\EditUser-48x48.png" Label="Rediger kunde" Click="EditCustomer_Click"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

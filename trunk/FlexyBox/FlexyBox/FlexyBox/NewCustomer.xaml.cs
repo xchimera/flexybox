@@ -37,12 +37,22 @@ namespace FlexyBox
         {
             InitializeComponent();
             Model = new NewCustomerViewModel();
+            Model.IsNew = true;
             this.customerId = customer;
             this.employeeId = employeeId;
-            Reload();
+            ReloadProducts();
+        }
+        public NewCustomer(CustomerFlow customer, int employeeId)
+        {
+            InitializeComponent();
+            Model = new NewCustomerViewModel();
+            Model.IsNew = false;
+            Model.Customer = customer;
+            this.employeeId = employeeId;
+            ReloadProducts();
         }
 
-        private void Reload()
+        private void ReloadProducts()
         {
             var result = new List<ProductClickViewModel>();
             using (var ctx = new FlexyboxContext())
@@ -53,23 +63,32 @@ namespace FlexyBox
                         Entity = x,
                     }).ToList();
             }
-            Model.Products = result.ToBindingList();
+            //if(!Model.IsNew)
+            //{
+            //    foreach(var product in result)
+            //    {
+            //        if(result.Contains(product))
+            //    }
+            //}
+            //Model.Products = result.ToBindingList();
         }
 
         private List<StepAnswer> CreateAnswersForQuestions(CustomerFlow customer, List<int> productIds, int employeeId)
         {
             List<int> questions = new List<int>();
+            List<int> currentQuestionsIds = customer.Answers.Select(x => x.Id).ToList();
+
             var result = new List<StepAnswer>();
 
-            using(var ctx = new FlexyboxContext())
+            using (var ctx = new FlexyboxContext())
             {
                 questions = ctx.Query<StepQuestion>()
-                    .Where(x => productIds.Contains(x.Product.Id))
-                    .Select(x=> x.Id)
+                    .Where(x => productIds.Contains(x.Product.Id) && currentQuestionsIds.Contains(x.Id))
+                    .Select(x => x.Id)
                     .ToList();
             }
 
-            foreach(var question in questions)
+            foreach (var question in questions)
             {
                 result.Add(new StepAnswer()
                     {
@@ -80,33 +99,63 @@ namespace FlexyBox
                     });
             }
 
-                return result;
+            return result;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var checkedProducts = new List<Product>();
-            foreach(var product in Model.Products)
+            foreach (var product in Model.Products)
             {
-                if(product.IsChecked)
+                if (product.IsChecked)
                 {
                     checkedProducts.Add(product.Entity);
                 }
             }
-
-            var customer = new CustomerFlow()
+            CustomerFlow customer;
+            if (Model.IsNew)
             {
-                CustomerId = customerId,
-                Name = Model.CustomerName,
-                Products = checkedProducts,
-            };
-            customer.Answers = CreateAnswersForQuestions(customer, checkedProducts.Select(x=> x.Id).ToList(), employeeId);
+                customer = new CustomerFlow()
+                {
+                    CustomerId = customerId,
+                    Name = Model.CustomerName,
+                    Products = checkedProducts,
+                };
+
+            }
+            else
+            {
+                using (var ctx = new FlexyboxContext())
+                {
+                    customer = ctx.QueryFromID<CustomerFlow>(customerId).Single();
+                }
+            }
+
+            if (Model.IsNew)
+                customer.Answers = CreateAnswersForQuestions(customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
+
+            else
+            {
+                var answers = CreateAnswersForQuestions(customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
+                foreach(var answer in answers)
+                {
+                    customer.Answers.Add(answer);
+                }
+            }
 
             using (var ctx = new FlexyboxContext())
             {
-                foreach(var product in customer.Products)
+                foreach (var product in customer.Products)
                 {
                     ctx.Entry(product).State = EntityState.Unchanged;
+                }
+                if(Model.IsNew)
+                {
+                    foreach(var answer in customer.Answers)
+                    {
+                        if (answer.Id != 0)
+                            ctx.Entry(answer).State = EntityState.Unchanged;
+                    }
                 }
                 if (!ctx.SaveEntity<CustomerFlow>(customer))
                 {
@@ -115,14 +164,47 @@ namespace FlexyBox
                 }
             }
             Close();
-            
+
         }
     }
     public class NewCustomerViewModel
     {
         public BindingList<ProductClickViewModel> Products { get; set; }
-        public string CustomerName { get; set; }
-        
+        public CustomerFlow Customer { get; set; }
+        public string CustomerName
+        {
+            get
+            {
+                if(Customer != null)
+                    return Customer.Name;
+                return "";
+            }
+            set
+            {
+                Customer.Name = value;
+            }
+        }
+        public bool IsNew { get; set; }
+        public string Header
+        {
+            get
+            {
+                if (IsNew)
+                    return "Du har valgt en ny kunde";
+                return "Rediger kunde";
+            }
+        }
+
+        public string SaveText
+        {
+            get
+            {
+                if (IsNew)
+                    return "Opret";
+                return "Gem";
+            }
+        }
+
         public NewCustomerViewModel()
         {
             Products = new BindingList<ProductClickViewModel>();
