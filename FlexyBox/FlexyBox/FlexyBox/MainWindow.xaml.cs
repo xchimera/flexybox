@@ -113,6 +113,10 @@ namespace FlexyBox
                     Entity = x,
                     
                 }).ToList();
+
+            var toDelete = new List<StepQuestionViewModel>();
+
+
             return result;
         }
 
@@ -305,6 +309,7 @@ namespace FlexyBox
 
                 using (var ctx = new FlexyboxContext())
                 {
+                    ctx.Entry(newAnswer.CustomerFlow).State = EntityState.Unchanged;
                     if (!ctx.SaveEntity<StepAnswer>(newAnswer))
                         MessageBox.Show("Fejl i at gemme ny svar entitet");
                 }
