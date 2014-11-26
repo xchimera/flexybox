@@ -38,7 +38,18 @@ namespace FlexyBox.ViewModel
                 OnPropertyChanged("State");
             }
         }
-        public int EmployeeId { get; set; } //hent fra entity
+        public int EmployeeId
+        {
+            get
+            {
+                return Entity.EmployeeId;
+            }
+            set
+            {
+                Entity.EmployeeId = value;
+            }
+        }
+        
         public DateTime TimeChanged
         {
             get

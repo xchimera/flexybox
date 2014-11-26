@@ -67,7 +67,7 @@ namespace FlexyBox
                 var answerVm = new StepAnswerViewModel()
                 {
                     Entity = answer,
-                    
+
                 };
                 result.Add(answerVm);
             }
@@ -97,6 +97,26 @@ namespace FlexyBox
                     .ToBindingList(),
                 })
                 .ToList();
+            var toDelete = new List<StepQuestionViewModel>();
+
+            foreach (StepGroupViewModel group in result)
+            {
+                foreach (var question in group.Questions)
+                {
+                    if (question.Parent != 0)
+                    {
+                        group.Questions
+                            .SingleOrDefault(x => x.Id == question.Parent)
+                            .Children.Add(question);
+                        toDelete.Add(question);
+                    }
+                }
+            }
+
+            foreach (var question in toDelete)
+            {
+                result.ForEach(x => x.Questions.Remove(question));
+            }
 
             return result;
         }
@@ -111,7 +131,7 @@ namespace FlexyBox
                 .Select(x => new StepQuestionViewModel()
                 {
                     Entity = x,
-                    
+
                 }).ToList();
 
             var toDelete = new List<StepQuestionViewModel>();
@@ -224,8 +244,8 @@ namespace FlexyBox
             {
                 foreach (var question in group.Questions)
                 {
-                    //foreach (var child in question.Children)
-                    //    child.Answer = InsertAnswers(child, answers);
+                    foreach (var child in question.Children)
+                        child.Answer = answers.Single(x => x.Entity.QuestionId == child.Id);
                     //question.Answer = InsertAnswers(question, answers);
 
 
@@ -280,7 +300,7 @@ namespace FlexyBox
 
                 };
 
-                answer = new StepAnswerViewModel() { Entity = newAnswer,};
+                answer = new StepAnswerViewModel() { Entity = newAnswer, };
                 questionVm.Answer = answer;
 
                 if (e.LeftButton == MouseButtonState.Pressed)
