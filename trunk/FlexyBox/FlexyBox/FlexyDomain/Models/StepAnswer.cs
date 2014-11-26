@@ -9,7 +9,7 @@ namespace FlexyDomain.Models
     public class StepAnswer : EntityPersist
     {       
         public int QuestionId { get; set; }
-        public int CustomerFlowId { get; set; }
+        public CustomerFlow CustomerFlow { get; set; }
         public string Comment { get; set; }
         public int EmployeeId { get; set; }
         public DateTime TimeChanged { get; set; }
