@@ -4,13 +4,13 @@
         Title="NewCustomer" Height="300" Width="350">
     <DockPanel Margin="10">
         <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Padding="15,5,15,5" Click="Button_Click">OK</Button>
+            <Button Padding="15,5,15,5" Click="Button_Click" Content="{Binding SaveText}" IsDefault="True"></Button>
             <Button Padding="15,5,15,5" Margin="10,0,0,0" IsCancel="True">Annuller</Button>
         </DockPanel>
 
         <StackPanel>
             
-            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="0,0,0,15">Du har valgt en ny kunde</TextBlock>
+            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="0,0,0,15" Text="{Binding Header}"/>
             
             <DockPanel>
                 <TextBlock Text="Kundens navn"/>
