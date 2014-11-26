@@ -1,6 +1,7 @@
 ﻿<Window x:Class="FlexyBox.LogWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xml:lang="da-DK"
         WindowStartupLocation="Manual"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -8,7 +9,7 @@
     
     <Window.Resources>
         <DataTemplate x:Key="log">
-            <Expander BorderBrush="DarkRed" Header="{Binding TimeChanged, StringFormat=dd-MM-yy HH:mm}" Width="280">
+            <Expander BorderBrush="DarkRed" Header="{Binding TimeChanged, StringFormat={}{dd-MM-yy HH:mm}}" Width="280">
                     <DockPanel>
                     <Image Name="CheckBox" Width="22" Margin="4,4,4,4" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Image.Style>
