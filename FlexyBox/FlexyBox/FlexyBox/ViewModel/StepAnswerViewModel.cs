@@ -14,24 +14,6 @@ namespace FlexyBox.ViewModel
 
         public StepAnswer Entity { get; set; }
 
-        public int Id
-        {
-            get
-            {
-                return Entity.Id;
-            }
-        }
-        public int QuestionId
-        {
-            get
-            {
-                return Entity.QuestionId;
-            }
-            set
-            {
-                Entity.QuestionId = value;
-            }
-        }
         public string Comment
         {
             get
@@ -53,10 +35,10 @@ namespace FlexyBox.ViewModel
             set
             {
                 Entity.State = value;
-                OnPropertyChanged("Answer");
+                OnPropertyChanged("State");
             }
         }
-        public int EmployeeId { get; set; }
+        public int EmployeeId { get; set; } //hent fra entity
         public DateTime TimeChanged
         {
             get
@@ -81,8 +63,6 @@ namespace FlexyBox.ViewModel
                 OnPropertyChanged("IsLog");
             }
         }
-        public StepQuestionViewModel Question { get; set; }
-
 
 
 

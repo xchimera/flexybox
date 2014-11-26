@@ -119,6 +119,18 @@
     <Compile Include="Migrations\201411241202087_uploadedFilesCustomerLink.Designer.cs">
       <DependentUpon>201411241202087_uploadedFilesCustomerLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411260931447_michaelhasfunwithmycodev1.cs" />
+    <Compile Include="Migrations\201411260931447_michaelhasfunwithmycodev1.Designer.cs">
+      <DependentUpon>201411260931447_michaelhasfunwithmycodev1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411260941364_michaelhasfunwithmycodev2.cs" />
+    <Compile Include="Migrations\201411260941364_michaelhasfunwithmycodev2.Designer.cs">
+      <DependentUpon>201411260941364_michaelhasfunwithmycodev2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411260949451_michaelhasfunwithmycodev3.cs" />
+    <Compile Include="Migrations\201411260949451_michaelhasfunwithmycodev3.Designer.cs">
+      <DependentUpon>201411260949451_michaelhasfunwithmycodev3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -200,6 +212,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411241202087_uploadedFilesCustomerLink.resx">
       <DependentUpon>201411241202087_uploadedFilesCustomerLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411260931447_michaelhasfunwithmycodev1.resx">
+      <DependentUpon>201411260931447_michaelhasfunwithmycodev1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411260941364_michaelhasfunwithmycodev2.resx">
+      <DependentUpon>201411260941364_michaelhasfunwithmycodev2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411260949451_michaelhasfunwithmycodev3.resx">
+      <DependentUpon>201411260949451_michaelhasfunwithmycodev3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
