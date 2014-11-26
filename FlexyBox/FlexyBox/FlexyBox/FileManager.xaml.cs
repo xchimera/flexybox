@@ -91,12 +91,7 @@ namespace FlexyBox
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = ((sender as ListBox).SelectedItem as UploadedFilesViewModel);
-            using (MemoryStream ms = new MemoryStream(item.File))
-            {
-                var flowDocument = new FlowDocument();
-                TextRange tr = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
-                tr.Load(ms, "docx");
-            }
+            Stream ReadStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("file1.xps");
             
         }
 

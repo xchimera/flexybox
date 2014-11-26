@@ -1,0 +1,29 @@
+﻿<Window x:Class="FlexyBox.NewCustomer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NewCustomer" Height="300" Width="350">
+    <DockPanel Margin="10">
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Padding="15,5,15,5" Click="Button_Click">OK</Button>
+            <Button Padding="15,5,15,5" Margin="10,0,0,0" IsCancel="True">Annuller</Button>
+        </DockPanel>
+
+        <StackPanel>
+            
+            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="0,0,0,15">Du har valgt en ny kunde</TextBlock>
+            
+            <DockPanel>
+                <TextBlock Text="Kundens navn"/>
+                <TextBox Text="{Binding CustomerName}" Margin="10,0,0,0"/>
+            </DockPanel>
+            <TextBlock Margin="0,10,0,0" Text="Vælg de produkter kunden skal bruge"/>
+            <ListBox ItemsSource="{Binding Products}" Margin="0,10,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="105">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </DockPanel>
+</Window>

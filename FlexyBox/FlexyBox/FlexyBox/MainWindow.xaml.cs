@@ -230,7 +230,7 @@ namespace FlexyBox
             List<StepGroupViewModel> groups;
             using (var ctx = new FlexyboxContext())
             {
-                var entCustomer = ctx.Query<CustomerFlow>()
+                var entCustomer = ctx.QueryFromID<CustomerFlow>(customerId)
                     .Include(x => x.Products).Single();
 
                 customer = GetCustomer(entCustomer);
