@@ -9,8 +9,8 @@
     
     <Window.Resources>
         <DataTemplate x:Key="log">
-            <Expander Background="AntiqueWhite" Header="{Binding TimeChanged, StringFormat={}{dd-MM-yy HH:mm}}" Width="280">
-                    <DockPanel>
+            <Expander Background="AntiqueWhite" Header="{Binding TimeChanged,StringFormat={}{dd-MM-yy HH:mm}}" Width="280">
+                <DockPanel>
                     <Image Name="CheckBox" Width="22" Margin="4,4,4,4" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
@@ -33,7 +33,7 @@
                         </Image.Style>
                     </Image>
                     <TextBlock FontSize="14" Margin="4,4,4,4" Text="{Binding Comment}" TextWrapping="Wrap"/>
-                    </DockPanel>
+                </DockPanel>
             </Expander>
         </DataTemplate>
     </Window.Resources>
