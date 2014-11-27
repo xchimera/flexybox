@@ -44,7 +44,11 @@ namespace FlexyDomain.Extensions
             foreach (T item in source)
                 action(item);
         }
-
+        public static void ForEach<T>(this IList<T> source, Action<T> action)
+        {
+            foreach (T item in source)
+                action(item);
+        }
         public static BindingList<T> ToBindingList<T>(this IEnumerable<T> source)
         {
             return new BindingList<T>(source.ToList());
