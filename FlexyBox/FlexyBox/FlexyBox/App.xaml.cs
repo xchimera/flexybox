@@ -17,6 +17,7 @@ namespace FlexyBox
         //Expects employeeId customerId
         protected override void OnStartup(StartupEventArgs e)
         {
+            Current.ShutdownMode = System.Windows.ShutdownMode.OnExplicitShutdown;
             if (Debugger.IsAttached)
                 HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
             FlexyDomain.Models.CustomerFlow customer;
@@ -26,12 +27,15 @@ namespace FlexyBox
             }
             if (customer == null)
             {
-                if (new NewCustomer(int.Parse(e.Args[1]), int.Parse(e.Args[0])).ShowDialog() != true)
+                bool? dialog = new NewCustomer(int.Parse(e.Args[1]), int.Parse(e.Args[0])).ShowDialog();
+                if ( dialog != true)
                     return; 
 
             }
                 
-            new MainWindow(int.Parse(e.Args[0]), int.Parse(e.Args[1])).Show();
+            MainWindow window = new MainWindow(int.Parse(e.Args[0]), int.Parse(e.Args[1]));
+            window.Show();
+            Current.ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
         }
     }
 }

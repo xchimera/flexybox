@@ -10,5 +10,6 @@ namespace FlexyDomain.Models
     {
         public string Name { get; set; }
         public IList<CustomerFlow> Customers { get; set; }
+
     }
 }

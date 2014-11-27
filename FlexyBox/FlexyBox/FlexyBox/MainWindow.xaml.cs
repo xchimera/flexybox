@@ -116,13 +116,14 @@ namespace FlexyBox
                         toDelete.Add(question);
                     }
                 }
+                group.Questions = group.Questions.OrderByDescending(x => x.Order).ToBindingList();
             }
 
             foreach (var question in toDelete)
             {
                 result.ForEach(x => x.Questions.Remove(question));
             }
-
+            
             return result;
         }
 
