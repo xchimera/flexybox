@@ -171,6 +171,7 @@ namespace FlexyBox
                     Model.Customer.Answers.Add(answer);
                 }
             }
+            var answersToAdd = Model.Customer.Answers.Where(x=> x.Id == 0).ToList();
 
             using (var ctx = new FlexyboxContext())
             {
@@ -179,14 +180,14 @@ namespace FlexyBox
                     ctx.Entry(product).State = EntityState.Unchanged;
                 }
 
+                answersToAdd.ForEach(x => ctx.Entry(x).State = EntityState.Added);
+
                 foreach (var answer in Model.Customer.Answers)
                 {
                     if (answer.Id != 0)
                         ctx.Entry(answer).State = EntityState.Unchanged;
-                    else
-                        ctx.Entry(answer).State = EntityState.Added;
                 }
-
+                
                 if (!ctx.SaveEntity<CustomerFlow>(Model.Customer))
                 {
                     MessageBox.Show("Fejl i at oprette kunde!");
