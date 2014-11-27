@@ -9,11 +9,10 @@
 
     <Window.Resources>
             <DataTemplate x:Key="log">
-                <Expander Background="AntiqueWhite" Width="280">
+            <Expander Margin="0,2,0,2" Background="AntiqueWhite" Width="269">
                 <Expander.Header>
                     <DockPanel>
-                        <TextBlock Text="{Binding TimeChanged}" Margin="11,0,0,0"> 
-                            <Image Name="CheckBox" Width="20" Margin="11,0,0,0">
+                            <Image Name="CheckBox" Width="22" Margin="4,0,5,0">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
@@ -34,33 +33,17 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                        </TextBlock>
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Top" Text="{Binding TimeChanged, StringFormat= dd-MM-yy}" Margin="11,0,0,0"/>
+                            <TextBlock VerticalAlignment="Bottom" Text="{Binding TimeChanged, StringFormat= HH:mm:ss}" Margin="11,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Comment}" FontSize="13" FontStyle="Italic" Foreground="Black" VerticalAlignment="Center" Margin="11,0,11,0" TextTrimming="WordEllipsis"/>
                     </DockPanel>
                 </Expander.Header>
-                    <DockPanel>
-                    <Image  Width="20">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=State}" Value="Done">
-                                        <Setter Property="Source"  Value="/Icons/check48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=State}" Value="NotDone">
-                                        <Setter Property="Source" Value="/Icons/delete48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=State}" Value="NotApplicable">
-                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=State}" Value="NotAnswered">
-                                        <Setter Property="Source" Value="/Icons/checkbox48x48.png"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
+                <StackPanel>
                     <TextBlock FontSize="14" Margin="4,4,4,4" Text="{Binding Comment}" TextWrapping="Wrap" HorizontalAlignment="Left"/>
-                </DockPanel>
+                    <!--<TextBlock FontSize="14" Margin="4,4,4,4" Text="{Binding TimeChanged, StringFormat=dd-MM-yyyy}"/>-->
+                </StackPanel>
             </Expander>
             </DataTemplate>
         </Window.Resources>
