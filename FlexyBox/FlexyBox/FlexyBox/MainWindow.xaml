@@ -97,7 +97,11 @@
         <TabControl Grid.Row="1" ItemsSource="{Binding Groups}" TabStripPlacement="Left">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Header}"/>
+                    <Grid>
+                        <ProgressBar Value="{Binding CalculatedPercentage, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding Header}"/>
+                    
+                    </Grid>
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
