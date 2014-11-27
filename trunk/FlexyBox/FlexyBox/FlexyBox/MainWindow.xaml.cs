@@ -76,6 +76,11 @@ namespace FlexyBox
             return result;
         }
 
+        private void CalculatProcent()
+        {
+
+        }
+
 
         private List<StepGroupViewModel> GetGroupsWithQuestions(FlexyboxContext ctx, CustomerFlow customer)
         {
