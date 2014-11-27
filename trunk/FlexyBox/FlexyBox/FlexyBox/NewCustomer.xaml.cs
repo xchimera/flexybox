@@ -36,10 +36,14 @@ namespace FlexyBox
         public NewCustomer(int customer, int employeeId)
         {
             InitializeComponent();
-            Model = new NewCustomerViewModel();
+            Model = new NewCustomerViewModel()
+                {
+                    Customer = new CustomerFlow()
+                };
             Model.IsNew = true;
             this.customerId = customer;
             this.employeeId = employeeId;
+
             ReloadProducts();
         }
         public NewCustomer(CustomerFlow customer, int employeeId)
@@ -50,6 +54,7 @@ namespace FlexyBox
             Model.Customer = customer;
             this.employeeId = employeeId;
             ReloadProducts();
+            SetCheckedProducts();
         }
 
         private void ReloadProducts()
@@ -63,27 +68,39 @@ namespace FlexyBox
                         Entity = x,
                     }).ToList();
             }
-            //if(!Model.IsNew)
-            //{
-            //    foreach(var product in result)
-            //    {
-            //        if(result.Contains(product))
-            //    }
-            //}
-            //Model.Products = result.ToBindingList();
+            Model.Products = result.ToBindingList();
+        }
+
+        private void SetCheckedProducts()
+        {
+            foreach (var product in Model.Products)
+            {
+                foreach (var usedProduct in Model.Customer.Products)
+                {
+                    if (product.Entity.Id == usedProduct.Id)
+                    {
+                        product.IsChecked = true;
+
+                    }
+                }
+            }
         }
 
         private List<StepAnswer> CreateAnswersForQuestions(CustomerFlow customer, List<int> productIds, int employeeId)
         {
             List<int> questions = new List<int>();
-            List<int> currentQuestionsIds = customer.Answers.Select(x => x.Id).ToList();
+            List<int> currentQuestionsIds;
+            if (customer.Answers == null)
+                currentQuestionsIds = new List<int>();
+            else
+                currentQuestionsIds = customer.Answers.Select(x => x.QuestionId).ToList();
 
             var result = new List<StepAnswer>();
 
             using (var ctx = new FlexyboxContext())
             {
                 questions = ctx.Query<StepQuestion>()
-                    .Where(x => productIds.Contains(x.Product.Id) && currentQuestionsIds.Contains(x.Id))
+                    .Where(x => productIds.Contains(x.Product.Id) && !currentQuestionsIds.Contains(x.Id))
                     .Select(x => x.Id)
                     .ToList();
             }
@@ -101,6 +118,24 @@ namespace FlexyBox
 
             return result;
         }
+        private bool CheckValidity(List<Product> products)
+        {
+            bool isValid = true;
+            if (products.Count == 0)
+            {
+                var msg = MessageBox.Show("Er du HELT sikker på at du vil oprette kunden uden produkter?", "Er du sikker?", MessageBoxButton.YesNo);
+                if (msg == MessageBoxResult.No)
+                    isValid = false;
+            }
+
+            if (Model.CustomerName == string.Empty)
+            {
+                var msg = MessageBox.Show("Er du HELT sikker på at du vil oprette kunden uden navn?", "Er du sikker?", MessageBoxButton.YesNo);
+                if (msg == MessageBoxResult.No)
+                    isValid = false;
+            }
+            return isValid;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -112,57 +147,53 @@ namespace FlexyBox
                     checkedProducts.Add(product.Entity);
                 }
             }
-            CustomerFlow customer;
+            if (!CheckValidity(checkedProducts))
+                return;
+
             if (Model.IsNew)
             {
-                customer = new CustomerFlow()
-                {
-                    CustomerId = customerId,
-                    Name = Model.CustomerName,
-                    Products = checkedProducts,
-                };
-
+                Model.Customer.CustomerId = customerId;
+                Model.Customer.Name = Model.CustomerName;
+                Model.Customer.Products = checkedProducts;
             }
             else
-            {
-                using (var ctx = new FlexyboxContext())
-                {
-                    customer = ctx.QueryFromID<CustomerFlow>(customerId).Single();
-                }
-            }
+                Model.Customer.Products = checkedProducts;
+
 
             if (Model.IsNew)
-                customer.Answers = CreateAnswersForQuestions(customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
+                Model.Customer.Answers = CreateAnswersForQuestions(Model.Customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
 
             else
             {
-                var answers = CreateAnswersForQuestions(customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
-                foreach(var answer in answers)
+                var answers = CreateAnswersForQuestions(Model.Customer, checkedProducts.Select(x => x.Id).ToList(), employeeId);
+                foreach (var answer in answers)
                 {
-                    customer.Answers.Add(answer);
+                    Model.Customer.Answers.Add(answer);
                 }
             }
 
             using (var ctx = new FlexyboxContext())
             {
-                foreach (var product in customer.Products)
+                foreach (var product in Model.Customer.Products)
                 {
                     ctx.Entry(product).State = EntityState.Unchanged;
                 }
-                if(Model.IsNew)
+
+                foreach (var answer in Model.Customer.Answers)
                 {
-                    foreach(var answer in customer.Answers)
-                    {
-                        if (answer.Id != 0)
-                            ctx.Entry(answer).State = EntityState.Unchanged;
-                    }
+                    if (answer.Id != 0)
+                        ctx.Entry(answer).State = EntityState.Unchanged;
+                    else
+                        ctx.Entry(answer).State = EntityState.Added;
                 }
-                if (!ctx.SaveEntity<CustomerFlow>(customer))
+
+                if (!ctx.SaveEntity<CustomerFlow>(Model.Customer))
                 {
                     MessageBox.Show("Fejl i at oprette kunde!");
                     return;
                 }
             }
+            DialogResult = true;
             Close();
 
         }
@@ -175,7 +206,7 @@ namespace FlexyBox
         {
             get
             {
-                if(Customer != null)
+                if (Customer != null)
                     return Customer.Name;
                 return "";
             }
