@@ -50,22 +50,72 @@
                         </DockPanel>
                         <DockPanel>
                             <TextBlock Text="{Binding Header}" DockPanel.Dock="Top" Margin="10,0,0,0" TextWrapping="Wrap"/>
-                            <TextBox Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
+                            <TextBox Name="Comment"
+                                     MouseDoubleClick="Comment_MouseDoubleClick" Margin="10,5,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="50">
                                 <TextBox.Style>
                                     <Style TargetType="TextBox">
-                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Setter Property="IsReadOnly" Value="True"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Answer.State}" Value="NotAnswered">
-                                                <Setter Property="IsEnabled" Value="True"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Answer.State}" Value="NotApplicable">
-                                                <Setter Property="IsEnabled" Value="True"/>
+                                            <DataTrigger Binding="{Binding Answer.CanEdit}" Value="True">
+                                                <Setter Property="IsReadOnly" Value="False"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBox.Style>
+                                <TextBox.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox AcceptsReturn="True" Height="50" Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <StackPanel Grid.Column="1">                                            <Button  Name="SaveComment" Margin="5,0,0,0" Height="24" Width="24" Background="Transparent"
+                                                    HorizontalAlignment="Right" Click="SaveComment_Click">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Answer.CanEdit}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                                <Button.Template>
+                                                    <ControlTemplate>
+                                                        <Image Source="Icons/Save-32x32.png" Width="24"/>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                            <Button Name="UndoComment" Width="24" Height="24" Margin="5,0,0,0" Background="Transparent"
+                                                    HorizontalAlignment="Right" Click="UndoComment_Click">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Answer.CanEdit}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                                    <Button.Template>
+                                                        <ControlTemplate>
+                                                            <Image Source="Icons/Undo-24x24.png" Width="24"/>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </StackPanel>
 
+
+                                        </Grid>
+
+                                    </ControlTemplate>
+                                </TextBox.Template>
+                                
                             </TextBox>
+
                         </DockPanel>
 
                         <!---->

@@ -67,6 +67,7 @@ namespace FlexyBox
                 var answerVm = new StepAnswerViewModel()
                 {
                     Entity = answer,
+                    Comment = answer.Comment,
 
                 };
                 result.Add(answerVm);
@@ -306,7 +307,7 @@ namespace FlexyBox
 
                 };
 
-                answer = new StepAnswerViewModel() { Entity = newAnswer, };
+                answer = new StepAnswerViewModel() { Entity = newAnswer, Comment = answer.Comment };
                 questionVm.Answer = answer;
 
                 if (e.LeftButton == MouseButtonState.Pressed)
@@ -366,12 +367,41 @@ namespace FlexyBox
             if (new NewCustomer(Model.CustomerViewModel.Entity, Model.EmployeeId).ShowDialog() == true)
                 Reload(Model.CustomerViewModel.Id);
         }
+
+ 
+
+        private void Comment_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((sender as TextBox).DataContext as StepQuestionViewModel).Answer.CanEdit = true;
+
+        }
+
+        private void SaveComment_Click(object sender, RoutedEventArgs e)
+        {
+            var answer = ((sender as Button).DataContext as StepQuestionViewModel).Answer;
+            answer.Entity.Comment = answer.Comment;
+
+            using (var ctx = new FlexyboxContext())
+            {
+                if(!ctx.SaveEntity(answer.Entity))                
+                    MessageBox.Show("Kunne ikke gemme svaret!");               
+            }
+            answer.CanEdit = false;
+        }
+
+        private void UndoComment_Click(object sender, RoutedEventArgs e)
+        {
+            var answer = ((sender as Button).DataContext as StepQuestionViewModel).Answer;
+            answer.Comment = answer.Entity.Comment;
+            answer.CanEdit = false;
+        }
     }
     public class MainWindowViewModel
     {
         public int EmployeeId { get; set; }
         public BindingList<StepGroupViewModel> Groups { get; set; }
         public CustomerFlowViewModel CustomerViewModel { get; set; }
+
         public MainWindowViewModel(int employeeId)
         {
             Groups = new BindingList<StepGroupViewModel>();

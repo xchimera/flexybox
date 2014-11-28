@@ -14,18 +14,7 @@ namespace FlexyBox.ViewModel
 
         public StepAnswer Entity { get; set; }
 
-        public string Comment
-        {
-            get
-            {
-                return Entity.Comment;
-            }
-            set
-            {
-                Entity.Comment = value;
-                OnPropertyChanged("Comment");
-            }
-        }
+        public string Comment { get; set; }
         public FlexyDomain.Models.AnswerState State
         {
             get
@@ -75,6 +64,19 @@ namespace FlexyBox.ViewModel
             }
         }
 
+        private bool _CanEdit;
+        public bool CanEdit
+        {
+            get
+            {
+                return _CanEdit;
+            }
+            set
+            {
+                _CanEdit = value;
+                OnPropertyChanged("CanEdit");
+            }
+        }
 
 
         protected void OnPropertyChanged(string name)
