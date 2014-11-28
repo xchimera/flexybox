@@ -23,7 +23,8 @@
                         </Style>
                     </Border.Style>
                     <DockPanel Margin="10">
-                        <Button Content="Log" DockPanel.Dock="Right" VerticalAlignment="Top"  Width="26" Height="21" Margin="-5,-5,-5,-5" Click="Button_Click"/>
+                        <Button Content="Log" DockPanel.Dock="Right" VerticalAlignment="Top"  Width="28" Height="22" Margin="-5,-5,-5,-5" Click="Button_Click">     
+                        </Button>
                         <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
                             <Image Name="CheckBox" Width="32" MouseDown="CheckBox_MouseDown" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5,20,0,0">
                                 <Image.Style>
