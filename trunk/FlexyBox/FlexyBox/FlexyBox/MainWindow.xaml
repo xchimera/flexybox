@@ -99,13 +99,18 @@
             <TabControl.ItemTemplate>
                 
                 <DataTemplate>
-                    
 
-                    <Grid>
-                        <ProgressBar Value="{Binding CalculatedPercentage, Mode=OneWay}"/>
-                        <TextBlock Text="{Binding Header}"/>
-                    
-                    </Grid>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Header}"/>
+                        <Grid DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+                            <ProgressBar Height="15" Padding="15" Value="{Binding CalculatedPercentage, Mode=OneWay}"/>
+                            <TextBlock FontSize="10" HorizontalAlignment="Center">
+                                <Run Text="{Binding QuestionsAnswered, Mode=OneWay}"/>
+                                <Run Text="/"/>
+                                <Run Text="{Binding NumberOfQuestions, Mode=OneWay}"/>
+                            </TextBlock>
+                        </Grid>
+                    </DockPanel>
                     
                 </DataTemplate>
                     

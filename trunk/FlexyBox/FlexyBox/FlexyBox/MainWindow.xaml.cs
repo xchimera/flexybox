@@ -76,7 +76,7 @@ namespace FlexyBox
             return result;
         }
 
-        private void CalculatProcent()
+        private void CalculateProcent()
         {
 
         }
