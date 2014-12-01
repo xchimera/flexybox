@@ -21,6 +21,7 @@ using FlexyDomain.Extensions;
 using System.Diagnostics;
 using System.Data.Entity;
 using System.Windows.Controls.Ribbon;
+using System.IO;
 
 namespace FlexyBox
 {
@@ -40,6 +41,7 @@ namespace FlexyBox
             InitializeComponent();
             Model = new MainWindowViewModel(employeeId);
             //Loaded += MainWindow_Loaded;
+            
             Reload(customerId);
         }
 
@@ -278,6 +280,22 @@ namespace FlexyBox
             return question.Answer;
         }
 
+        private void LoadFiles()
+        {
+            List<MemoryStream> files = new List<MemoryStream>();
+
+            using (var ctx = new FlexyboxContext())
+            {
+                var result = ctx.Query<CustomerFile>().Where(x => x.Customer.Id == Model.CustomerViewModel.CustomerId)
+                    .Select(x => new CustomerFileViewModel()
+                    {
+                        File = x.File,
+                        Id = x.Id,
+                        FileType = x.FileType,
+                    }).ToList();
+            }
+        }
+
         private void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var questionVm = (sender as Image).DataContext as StepQuestionViewModel;
@@ -396,6 +414,8 @@ namespace FlexyBox
             answer.CanEdit = false;
         }
 
+       
+
         private void RibbonWindow_DragEnter(object sender, DragEventArgs e)
         {
 
@@ -406,21 +426,62 @@ namespace FlexyBox
 
         }
 
+        private void Ribbon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var ribbon = (sender as RibbonTab);
+            if (Model.TabIndex == 0)
+                Model.TabState = TabState.QuestionState;
+            else
+            {
+                Model.TabState = TabState.FileState;
+
+            }
+        }
+
         
     }
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public int EmployeeId { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public BindingList<StepGroupViewModel> Groups { get; set; }
         public CustomerFlowViewModel CustomerViewModel { get; set; }
-        public TabState tabState { get; set; }
+        public BindingList<MemoryStream> Files { get; set; }
+        public int EmployeeId { get; set; }
 
+        private TabState _TabState;
+        public TabState TabState
+        {
+            get
+            {
+                return _TabState;
+            }
+            set
+            {
+                _TabState = value;
+                OnPropertyChanged("TabState");
+            }
+        }
+
+        public int TabIndex { get; set; }
 
         public MainWindowViewModel(int employeeId)
         {
             Groups = new BindingList<StepGroupViewModel>();
             EmployeeId = employeeId;
-            tabState = TabState.QuestionState;
+            TabState = TabState.QuestionState;
+            
+        }
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+
         }
 
     }

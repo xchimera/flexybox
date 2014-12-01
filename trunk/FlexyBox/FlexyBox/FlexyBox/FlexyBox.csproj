@@ -95,7 +95,7 @@
     <Compile Include="ViewModel\StepQuestionViewModel.cs" />
     <Compile Include="ViewModel\StepAnswerViewModel.cs" />
     <Compile Include="ViewModel\StepGroupViewModel.cs" />
-    <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
+    <Compile Include="ViewModel\CustomerFileViewModel.cs" />
     <Page Include="AddFile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -135,14 +135,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="Ribbon"  SelectedIndex="0">
-            <RibbonTab Header="Home" KeyTip="H" >
+        <Ribbon x:Name="Ribbon" MouseLeftButtonUp="Ribbon_MouseLeftButtonUp" SelectedIndex="{Binding TabIndex}">
+            <RibbonTab Header="Home" KeyTip="H" TabIndex="0">
                 <RibbonGroup x:Name="GroupHome" Header="Flexy" >
                     <RibbonButton Name="ManageFiles" LargeImageSource="Icons\File-48x48.png" Label="Filer" Click="ManageFiles_Click"/>  
                     <RibbonButton Name="EditCustomer" LargeImageSource="Icons\EditUser-48x48.png" Label="Rediger kunde" Click="EditCustomer_Click"/>
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Fil styring" KeyTip="Y">
+            <RibbonTab Header="Fil styring" KeyTip="Y" TabIndex="1">
                 <RibbonGroup x:Name="Files" Header="Filer">
                      <RibbonButton Name="RemoveFile" LargeImageSource="Icons\DeleteFile-48x48.png" Label="Fjern fil" Click="RemoveFile_Click"/>
                 </RibbonGroup>
@@ -189,7 +189,7 @@
                 <Style TargetType="TabControl">
                     <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding tabState}" Value="QuestionState">
+                        <DataTrigger Binding="{Binding TabState}" Value="QuestionState">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -197,7 +197,19 @@
             </TabControl.Style>
         </TabControl>
         <DockPanel Grid.Row="1">
+            <DataGrid />
             
+            
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding TabState}" Value="FileState">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
         </DockPanel>
     </Grid>
 </RibbonWindow>
