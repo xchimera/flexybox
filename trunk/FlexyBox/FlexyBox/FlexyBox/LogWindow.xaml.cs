@@ -37,6 +37,15 @@ namespace FlexyBox
                 DataContext = value;
             }
         }
+
+        public int QuestionId
+        {
+            set
+            {
+                Model.QuestionId = value;
+                LogLoad();
+            }
+        }
         public LogWindow(int questionId)
         {
             InitializeComponent();
@@ -44,6 +53,10 @@ namespace FlexyBox
             Model.QuestionId = questionId;
             MouseLeave += LogWindow_MouseLeave;
             LogLoad();
+        }
+        public LogWindow()
+        {
+
         }
 
         private void LogLoad()
