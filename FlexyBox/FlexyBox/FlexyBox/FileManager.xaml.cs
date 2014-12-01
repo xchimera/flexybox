@@ -41,11 +41,11 @@ namespace FlexyBox
         private void Reload()
         {
             Model.Files.Clear();
-            var result = new List<UploadedFilesViewModel>();
+            var result = new List<CustomerFile>();
             using (var ctx = new FlexyboxContext())
             {
-                result = ctx.Query<UploadedFiles>().Where(x => x.Customer.Id == Model.Customer.Id)
-                    .Select(x => new UploadedFilesViewModel()
+                result = ctx.Query<CustomerFile>().Where(x => x.Customer.Id == Model.Customer.Id)
+                    .Select(x => new CustomerFile()
                     {
                         Id = x.Id,
                         Name = x.Name,
@@ -72,7 +72,7 @@ namespace FlexyBox
             var customerEntity = Model.Customer.Entity;
             
 
-            var entity = new UploadedFiles()
+            var entity = new CustomerFile()
             {
                 Customer = customerEntity,
                 File = file,
@@ -82,7 +82,7 @@ namespace FlexyBox
             using (var ctx = new FlexyboxContext())
             {
                 ctx.Entry(customerEntity).State = System.Data.Entity.EntityState.Unchanged;
-                result = ctx.SaveEntity<UploadedFiles>(entity);
+                result = ctx.SaveEntity<CustomerFile>(entity);
             }
             
             return result;
@@ -90,7 +90,7 @@ namespace FlexyBox
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = ((sender as ListBox).SelectedItem as UploadedFilesViewModel);
+            var item = ((sender as ListBox).SelectedItem as CustomerFile);
             Stream ReadStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("file1.xps");
             
         }
@@ -118,8 +118,8 @@ namespace FlexyBox
     public class FileManagerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private BindingList<UploadedFilesViewModel> _Files;
-        public BindingList<UploadedFilesViewModel> Files {
+        private BindingList<CustomerFile> _Files;
+        public BindingList<CustomerFile> Files {
             get
             {
                 return _Files;
@@ -133,7 +133,7 @@ namespace FlexyBox
         public CustomerFlowViewModel Customer { get; set; }
         public FileManagerViewModel()
         {
-            Files = new BindingList<UploadedFilesViewModel>();
+            Files = new BindingList<CustomerFile>();
         }
         protected void OnPropertyChanged(string name)
         {

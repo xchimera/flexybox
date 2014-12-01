@@ -131,6 +131,10 @@
     <Compile Include="Migrations\201411260949451_michaelhasfunwithmycodev3.Designer.cs">
       <DependentUpon>201411260949451_michaelhasfunwithmycodev3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412011401316_renameFile.cs" />
+    <Compile Include="Migrations\201412011401316_renameFile.Designer.cs">
+      <DependentUpon>201412011401316_renameFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -145,7 +149,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\UploadedFiles.cs" />
+    <Compile Include="Models\CustomerFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StepAnswer.cs" />
     <Compile Include="Models\StepGroup.cs" />
@@ -221,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411260949451_michaelhasfunwithmycodev3.resx">
       <DependentUpon>201411260949451_michaelhasfunwithmycodev3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412011401316_renameFile.resx">
+      <DependentUpon>201412011401316_renameFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

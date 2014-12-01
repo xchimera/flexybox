@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
-    public class UploadedFiles : EntityPersist
+    public class CustomerFile : EntityPersist
     {
         public string Name { get; set; }
         public virtual byte[] File { get; set; }
+        public string FileType { get; set; }
         public CustomerFlow Customer { get; set; }
     }
 }
