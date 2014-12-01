@@ -2,12 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xml:lang="da-DK"
-        WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
         Height="300" Width="300">
-
-    <Window.Resources>
+       
+        <Window.Resources>
             <DataTemplate x:Key="log">
             <Expander Margin="0,2,0,2" Background="AntiqueWhite" Width="269">
                 <Expander.Header>
@@ -47,6 +44,6 @@
             </Expander>
             </DataTemplate>
         </Window.Resources>
-        <ListView ItemsSource="{Binding LogGroups}" ItemTemplate="{StaticResource ResourceKey=log}">
-        </ListView>
+    <ListView ItemsSource="{Binding LogGroups}" ItemTemplate="{StaticResource ResourceKey=log}">
+    </ListView>
 </Window>
