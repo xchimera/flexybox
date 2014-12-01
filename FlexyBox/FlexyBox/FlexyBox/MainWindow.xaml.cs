@@ -395,18 +395,38 @@ namespace FlexyBox
             answer.Comment = answer.Entity.Comment;
             answer.CanEdit = false;
         }
+
+        private void RibbonWindow_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void RemoveFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
     }
     public class MainWindowViewModel
     {
         public int EmployeeId { get; set; }
         public BindingList<StepGroupViewModel> Groups { get; set; }
         public CustomerFlowViewModel CustomerViewModel { get; set; }
+        public TabState tabState { get; set; }
+
 
         public MainWindowViewModel(int employeeId)
         {
             Groups = new BindingList<StepGroupViewModel>();
             EmployeeId = employeeId;
+            tabState = TabState.QuestionState;
         }
 
+    }
+
+    public enum TabState
+    {
+        QuestionState, FileState
     }
 }

@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:Log="clr-namespace:FlexyBox"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="FlexyFlow" Height="600" Width="1000"
+              DragEnter="RibbonWindow_DragEnter">
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Padding" Value="15"/>
@@ -10,8 +11,6 @@
 
         <DataTemplate x:Key="GroupQuestionTemplate">
             <StackPanel>
-
-
                 <Border BorderBrush="DarkSlateBlue" Margin="2" Background="AntiqueWhite">
                     <Border.Style>
                         <Style TargetType="Border">
@@ -143,6 +142,11 @@
                     <RibbonButton Name="EditCustomer" LargeImageSource="Icons\EditUser-48x48.png" Label="Rediger kunde" Click="EditCustomer_Click"/>
                 </RibbonGroup>
             </RibbonTab>
+            <RibbonTab Header="Fil styring" KeyTip="Y">
+                <RibbonGroup x:Name="Files" Header="Filer">
+                     <RibbonButton Name="RemoveFile" LargeImageSource="Icons\DeleteFile-48x48.png" Label="Fjern fil" Click="RemoveFile_Click"/>
+                </RibbonGroup>
+            </RibbonTab>
         </Ribbon>
                 
         <TabControl Grid.Row="1" ItemsSource="{Binding Groups}" TabStripPlacement="Left">
@@ -181,7 +185,20 @@
                 </DataTemplate>
 
             </TabControl.ContentTemplate>
+            <TabControl.Style>
+                <Style TargetType="TabControl">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding tabState}" Value="QuestionState">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Style>
         </TabControl>
+        <DockPanel Grid.Row="1">
+            
+        </DockPanel>
     </Grid>
 </RibbonWindow>
 
