@@ -14,9 +14,13 @@
                 <Border BorderBrush="DarkSlateBlue" Margin="2" Background="AntiqueWhite">
                     <Border.Style>
                         <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsChild}" Value="True">
                                     <Setter Property="Margin" Value="15,0,0,0"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Visibility}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

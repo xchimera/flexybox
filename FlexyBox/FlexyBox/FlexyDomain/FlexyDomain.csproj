@@ -135,6 +135,14 @@
     <Compile Include="Migrations\201412011401316_renameFile.Designer.cs">
       <DependentUpon>201412011401316_renameFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412081135593_questionvisibility.cs" />
+    <Compile Include="Migrations\201412081135593_questionvisibility.Designer.cs">
+      <DependentUpon>201412081135593_questionvisibility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412081245212_questionvisibility1.cs" />
+    <Compile Include="Migrations\201412081245212_questionvisibility1.Designer.cs">
+      <DependentUpon>201412081245212_questionvisibility1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerFlow.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="FlexyboxContext.cs" />
@@ -150,6 +158,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\CustomerFile.cs" />
+    <Compile Include="Models\QuestionVisibility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StepAnswer.cs" />
     <Compile Include="Models\StepGroup.cs" />
@@ -228,6 +237,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412011401316_renameFile.resx">
       <DependentUpon>201412011401316_renameFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412081135593_questionvisibility.resx">
+      <DependentUpon>201412081135593_questionvisibility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412081245212_questionvisibility1.resx">
+      <DependentUpon>201412081245212_questionvisibility1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

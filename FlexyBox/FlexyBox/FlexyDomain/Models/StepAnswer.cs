@@ -15,7 +15,6 @@ namespace FlexyDomain.Models
         public DateTime TimeChanged { get; set; }
         public bool IsLog { get; set; }
         public AnswerState State { get; set; }
-        public bool IsDeleted { get; set; }
     }
 
     public enum AnswerState
