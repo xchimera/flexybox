@@ -41,7 +41,7 @@ namespace FlexyBox
             InitializeComponent();
             Model = new MainWindowViewModel(employeeId);
             //Loaded += MainWindow_Loaded;
-            
+
             Reload(customerId);
         }
 
@@ -79,15 +79,28 @@ namespace FlexyBox
             return result;
         }
 
-        private void CalculateProcent()
-        {
-
-        }
-
 
         private List<StepGroupViewModel> GetGroupsWithQuestions(FlexyboxContext ctx, CustomerFlow customer)
         {
             var productIds = customer.Products.Select(x => x.Id).ToList();
+
+            var visibilities = ctx.Query<QuestionVisibility>()
+                .Include(x => x.Question)
+                .Include(x => x.Questions)
+                .Where(x => productIds.Contains(x.Question.Product.Id))
+                .ToList()
+                .Select(x => new QuestionVisibilityViewModel()
+                {
+                    Id = x.Id,
+                    Question = new StepQuestionViewModel() { Entity = x.Question},
+                    Questions = x.Questions.Select(c => new StepQuestionViewModel()
+                    {
+                        Entity = c
+
+                    })
+                    .ToBindingList(),
+                })
+                .ToList();
 
             var result = ctx.Query<StepQuestion>()
                 .Include(x => x.Group)
@@ -105,106 +118,130 @@ namespace FlexyBox
                     .ToBindingList(),
                 })
                 .ToList();
-            var toDelete = new List<StepQuestionViewModel>();
+
+            var questionToDelete = new List<StepQuestionViewModel>();
+            var visibilityToDelete = new List<QuestionVisibilityViewModel>();
 
             foreach (StepGroupViewModel group in result)
             {
                 foreach (var question in group.Questions)
                 {
+
                     if (question.Parent != 0)
                     {
                         group.Questions
                             .SingleOrDefault(x => x.Id == question.Parent)
                             .Children.Add(question);
-                        toDelete.Add(question);
+                        questionToDelete.Add(question);
+                    }
+                    
+                    foreach(var visibility in visibilities)
+                    {
+                        if (visibility.Question.Id == question.Id)
+                            visibility.Question = question;
+                        var questionLoc = visibility.Questions.IndexOf(question);
+                        if(questionLoc >= 0)
+                            visibility.Questions[questionLoc] = question;
+
                     }
                 }
                 group.Questions = group.Questions.OrderByDescending(x => x.Order).ToBindingList();
             }
 
-            foreach (var question in toDelete)
+            //foreach(StepGroupViewModel group in result)
+            //{
+            //    foreach(var question in group.Questions)
+            //    {
+            //        foreach(var visibility in visibilities)
+            //        {
+            //            if()
+            //        }
+            //    }
+            //}
+
+            foreach (var question in questionToDelete)
             {
                 result.ForEach(x => x.Questions.Remove(question));
             }
-            
-            return result;
-        }
-
-
-        private List<StepQuestionViewModel> GetQuestions(FlexyboxContext ctx, CustomerFlow customer)
-        {
-            var productIds = customer.Products.Select(x => x.Id).ToList();
-
-            var result = ctx.Query<StepQuestion>()
-                .Where(x => productIds.Contains(x.Product.Id))
-                .Select(x => new StepQuestionViewModel()
-                {
-                    Entity = x,
-
-                }).ToList();
-
-            var toDelete = new List<StepQuestionViewModel>();
-
 
             return result;
         }
 
-        private List<StepGroupViewModel> GetGroups(FlexyboxContext ctx, CustomerFlow customer)
-        {
-            var result = new List<StepGroupViewModel>();
 
-            var questions = GetQuestions(ctx, customer);
+        //private List<StepQuestionViewModel> GetQuestions(FlexyboxContext ctx, CustomerFlow customer)
+        //{
+        //    var productIds = customer.Products.Select(x => x.Id).ToList();
 
-            var groups = ctx.Query<StepGroup>()
-                //.Include(x => x.Questions)
-                .ToList();
+        //    var result = ctx.Query<StepQuestion>()
+        //        .Where(x => productIds.Contains(x.Product.Id))
+        //        .Select(x => new StepQuestionViewModel()
+        //        {
+        //            Entity = x,
 
-            foreach (var group in groups)
-            {
+        //        }).ToList();
 
-                var groupVm = new StepGroupViewModel()
-                {
-                    Id = group.Id,
-                    Header = group.Header,
+        //    var toDelete = new List<StepQuestionViewModel>();
 
 
+        //    return result;
+        //}
 
-                    //Questions = group.Questions.Select(x => new StepQuestionViewModel()
-                    //{
-                    //    Entity = x,
-                    //}).ToBindingList(),
+        //private List<StepGroupViewModel> GetGroups(FlexyboxContext ctx, CustomerFlow customer)
+        //{
+        //    var result = new List<StepGroupViewModel>();
+
+        //    var questions = GetQuestions(ctx, customer);
+
+        //    var groups = ctx.Query<StepGroup>()
+        //        //.Include(x => x.Questions)
+        //        .ToList();
+
+        //    foreach (var group in groups)
+        //    {
+
+        //        var groupVm = new StepGroupViewModel()
+        //        {
+        //            Id = group.Id,
+        //            Header = group.Header,
 
 
-                };
-                groupVm.Questions = questions.Where(x => x.Group.Id == groupVm.Id).ToBindingList();
-                groupVm.Questions.ForEach(x => x.Group = groupVm);
-                result.Add(groupVm);
-            }
 
-            var toDelete = new List<StepQuestionViewModel>();
+        //            //Questions = group.Questions.Select(x => new StepQuestionViewModel()
+        //            //{
+        //            //    Entity = x,
+        //            //}).ToBindingList(),
 
 
-            foreach (var group in result)
-            {
-                foreach (var question in group.Questions)
-                {
-                    if (question.Parent != 0)
-                    {
-                        group.Questions
-                            .SingleOrDefault(x => x.Id == question.Parent)
-                            .Children.Add(question);
-                        toDelete.Add(question);
-                    }
-                }
+        //        };
+        //        groupVm.Questions = questions.Where(x => x.Group.Id == groupVm.Id).ToBindingList();
+        //        groupVm.Questions.ForEach(x => x.Group = groupVm);
+        //        result.Add(groupVm);
+        //    }
 
-            }
+        //    var toDelete = new List<StepQuestionViewModel>();
 
-            foreach (var question in toDelete)
-            {
-                result.ForEach(x => x.Questions.Remove(question));
-            }
-            return result;
-        }
+
+        //    foreach (var group in result)
+        //    {
+        //        foreach (var question in group.Questions)
+        //        {
+        //            if (question.Parent != 0)
+        //            {
+        //                group.Questions
+        //                    .SingleOrDefault(x => x.Id == question.Parent)
+        //                    .Children.Add(question);
+        //                toDelete.Add(question);
+        //            }
+        //        }
+
+        //    }
+
+        //    foreach (var question in toDelete)
+        //    {
+        //        result.ForEach(x => x.Questions.Remove(question));
+        //    }
+        //    return result;
+        //}
 
         private CustomerFlowViewModel GetCustomer(CustomerFlow customer)
         {
@@ -386,7 +423,7 @@ namespace FlexyBox
                 Reload(Model.CustomerViewModel.Id);
         }
 
- 
+
 
         private void Comment_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -401,8 +438,8 @@ namespace FlexyBox
 
             using (var ctx = new FlexyboxContext())
             {
-                if(!ctx.SaveEntity(answer.Entity))                
-                    MessageBox.Show("Kunne ikke gemme svaret!");               
+                if (!ctx.SaveEntity(answer.Entity))
+                    MessageBox.Show("Kunne ikke gemme svaret!");
             }
             answer.CanEdit = false;
         }
@@ -414,7 +451,7 @@ namespace FlexyBox
             answer.CanEdit = false;
         }
 
-       
+
 
         private void RibbonWindow_DragEnter(object sender, DragEventArgs e)
         {
@@ -438,13 +475,13 @@ namespace FlexyBox
             }
         }
 
-        
+
     }
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         public BindingList<StepGroupViewModel> Groups { get; set; }
         public CustomerFlowViewModel CustomerViewModel { get; set; }
         public BindingList<MemoryStream> Files { get; set; }
@@ -471,7 +508,7 @@ namespace FlexyBox
             Groups = new BindingList<StepGroupViewModel>();
             EmployeeId = employeeId;
             TabState = TabState.QuestionState;
-            
+
         }
 
         public void OnPropertyChanged(string name)

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FlexyDomain.Extensions;
 
 namespace FlexyBox.ViewModel
 {
@@ -14,6 +15,7 @@ namespace FlexyBox.ViewModel
 
         public StepQuestion Entity { get; set; }
 
+        public QuestionVisibilityViewModel Visibility { get; set; }
 
         public int Id
         {
@@ -108,6 +110,17 @@ namespace FlexyBox.ViewModel
         }
         public StepGroupViewModel Group { get; set; }
 
+        public bool IsVisible { 
+            get
+            {
+                //hvis der ikke er nogen spørgsmål der skal være besvaret skal den vises
+                if (Entity.Visibility.Questions.Count == 0)
+                    return true;
+                //hvis der bare er et af spørgsmålene der er besvaret skal den vises
+                return Visibility.Questions.Any(x => x.Answer.State == AnswerState.Done);
+            } 
+        
+        }
 
         public StepQuestionViewModel()
         {
