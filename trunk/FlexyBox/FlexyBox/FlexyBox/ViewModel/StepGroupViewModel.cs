@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlexyBox.ViewModel
 {
+    //Lavet af Vijeeth
     public class StepGroupViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

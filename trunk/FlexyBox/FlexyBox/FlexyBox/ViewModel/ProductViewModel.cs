@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexyBox.ViewModel
 {
+    //Lavet af Vijeeth
     public class ProductViewModel
     {
         public int Id { get; set; }

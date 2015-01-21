@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="FlexyFlow" Height="600" Width="1000"
               DragEnter="RibbonWindow_DragEnter">
+    <!--lavet af Vijeeth og Søren-->
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Padding" Value="15"/>
@@ -73,7 +74,8 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBox AcceptsReturn="True" Height="50" Text="{Binding Answer.Comment, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <StackPanel Grid.Column="1">                                            <Button  Name="SaveComment" Margin="5,0,0,0" Height="24" Width="24" Background="Transparent"
+                                            <StackPanel Grid.Column="1">                                            
+                                                <Button  Name="SaveComment" Margin="5,0,0,0" Height="24" Width="24" Background="Transparent"
                                                     HorizontalAlignment="Right" Click="SaveComment_Click">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
@@ -201,7 +203,13 @@
             </TabControl.Style>
         </TabControl>
         <DockPanel Grid.Row="1">
-            <DataGrid />
+            <DataGrid Name="fileGrid" ItemsSource="{Binding Files}" Drop="fileGrid_Drop" DragEnter="RibbonWindow_DragEnter">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fil navn" Binding="{Binding FileName}"/>
+                    <DataGridTextColumn Header="Fil type" Binding="{Binding FileType}"/>
+                    <DataGridTextColumn Header="Fil størrelse" Binding="{Binding FileSize}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             
             
             <DockPanel.Style>

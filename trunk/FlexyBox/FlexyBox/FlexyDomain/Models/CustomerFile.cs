@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
+    //Lavet af Vijeeth
     public class CustomerFile : EntityPersist
     {
         public string Name { get; set; }

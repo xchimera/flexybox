@@ -24,6 +24,8 @@ namespace FlexyBox
     /// Interaction logic for LogWindow.xaml
     /// </summary>
     /// 
+    //Lavet af Vijeeth
+
     public partial class LogWindow : Window
     {
         public LogWindowViewModel Model
@@ -38,14 +40,6 @@ namespace FlexyBox
             }
         }
 
-        public int QuestionId
-        {
-            set
-            {
-                Model.QuestionId = value;
-                LogLoad();
-            }
-        }
         public LogWindow(int questionId)
         {
             InitializeComponent();
@@ -54,19 +48,17 @@ namespace FlexyBox
             MouseLeave += LogWindow_MouseLeave;
             LogLoad();
         }
-        public LogWindow()
-        {
-
-        }
 
         private void LogLoad()
         {
             List<StepAnswerViewModel> result = new List<StepAnswerViewModel>();
             using (FlexyboxContext ctx = new FlexyboxContext())
             {
+                //hent de StepAnswer entiteter der er markeret som logs og som er svar for det pågældende spørgsmål og lav dem til en view model
                 result = ctx.Query<StepAnswer>().Where(x => x.IsLog == true && x.QuestionId == Model.QuestionId).Select(x => new StepAnswerViewModel()
                     {
-                        Entity = x
+                        Entity = x,
+                        Comment = x.Comment
                     }).ToList();
             }
 
@@ -75,6 +67,7 @@ namespace FlexyBox
 
         void LogWindow_MouseLeave(object sender, MouseEventArgs e)
         {
+            //når musen forlader vinduet skal det lukkes
             this.Close();
         }
     }

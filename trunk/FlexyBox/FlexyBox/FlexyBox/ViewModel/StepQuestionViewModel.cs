@@ -9,6 +9,7 @@ using FlexyDomain.Extensions;
 
 namespace FlexyBox.ViewModel
 {
+    //Lavet af Vijeeth
     public class StepQuestionViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

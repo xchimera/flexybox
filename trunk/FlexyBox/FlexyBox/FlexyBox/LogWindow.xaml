@@ -4,8 +4,9 @@
         xml:lang="da-DK"
         WindowStyle="None"
         Height="300" Width="300">
-       
-        <Window.Resources>
+    <!--Lavet af Vijeeth-->
+
+    <Window.Resources>
             <DataTemplate x:Key="log">
             <Expander Margin="0,2,0,2" Background="AntiqueWhite" Width="269">
                 <Expander.Header>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
+    //Lavet af Vijeeth
     public class StepQuestion : EntityPersist
     {
         public string Header { get; set; }
