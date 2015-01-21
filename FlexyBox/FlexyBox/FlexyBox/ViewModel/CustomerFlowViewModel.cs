@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlexyBox.ViewModel
 {
+    //Lavet af Vijeeth
     public class CustomerFlowViewModel
     {
         public CustomerFlow Entity { get; set; }

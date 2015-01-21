@@ -87,9 +87,6 @@
     <Compile Include="NewCustomer.xaml.cs">
       <DependentUpon>NewCustomer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QuestionUC.xaml.cs">
-      <DependentUpon>QuestionUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\CustomerFlowViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\QuestionVisibilityViewModel.cs" />
@@ -122,10 +119,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NewCustomer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="QuestionUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

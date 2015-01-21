@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:WpfDocumentPreviewer="clr-namespace:WpfDocumentPreviewer;assembly=WpfDocumentPreviewer"
         Title="FileManager" Height="400" Width="600">
-
+    <!--Lavet af Søren-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

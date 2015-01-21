@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
+    //Lavet af Vijeeth
     public class Product : EntityPersist
     {
         public string Name { get; set; }

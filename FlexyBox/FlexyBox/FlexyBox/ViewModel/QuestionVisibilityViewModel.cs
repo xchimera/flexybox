@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace FlexyBox.ViewModel
 {
+    //Lavet af Vijeeth
     public class QuestionVisibilityViewModel
     {
         public int Id { get; set; }

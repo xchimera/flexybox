@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexyDomain.Models
 {
+    //Lavet af Vijeeth og Søren
     public class EntityPersist
     {
         public int Id { get; set; }
