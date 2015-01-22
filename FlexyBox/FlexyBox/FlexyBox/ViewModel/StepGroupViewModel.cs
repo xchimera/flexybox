@@ -17,47 +17,98 @@ namespace FlexyBox.ViewModel
         public string Header {get; set;}
         public BindingList<StepQuestionViewModel> Questions { get; set; }
 
+        private int _NumberOfQuestions;
         public int NumberOfQuestions
         {
-            get
+            get { return _NumberOfQuestions; }
+            set
             {
-                var result = 0;
-                
-                foreach (var question in Questions)
-                {
-                    result += question.Children.Count;
-                    result++; 
-                }
-
-                return result;  
+                _NumberOfQuestions = value;
+                OnPropertyChanged("NumberOfQuestions");
             }
         }
 
+        private int _QuestionsAnswered;
         public int QuestionsAnswered
         { 
             get
             {
-                var result = 0;
-
-                foreach( var question in Questions)
-                {
-                    if (question.Answer.State != FlexyDomain.Models.AnswerState.NotAnswered)
-                        result++;
-                    result += question.Children.Count(x => x.Answer.State != FlexyDomain.Models.AnswerState.NotAnswered);  
-                }
-                return result;
+                return _QuestionsAnswered;
+            }
+            set
+            {
+                _QuestionsAnswered = value;
+                OnPropertyChanged("QuestionsAnswered");
             }
         }
+
+        int _CalculatedPercentage;
         public int CalculatedPercentage
         {
             get
             {
-                var numberOfQuestions = Questions.Count;
-                var questionsAnswered = Questions.Count(x => x.Answer.State != FlexyDomain.Models.AnswerState.NotAnswered);
-                var toreturn = (int)Math.Round((double)(100 * questionsAnswered) / numberOfQuestions);          
+                return _CalculatedPercentage;
+            }
+            set
+            {
+                _CalculatedPercentage = value;
+                OnPropertyChanged("CalculatedPercentage");
+            }
+        }
 
-                return toreturn;
-                }
+        public StepGroupViewModel()
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            this.PropertyChanged += StepGroupViewModel_PropertyChanged;
+        }
+
+        void Questions_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void StepGroupViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "State":
+                    this.Update();
+                    break;
+            }
+        }
+
+        public void Update()
+        {
+            var result = 0;
+
+            foreach (var question in Questions)
+            {
+                result += question.Children.Count;
+                result++;
+            }
+            NumberOfQuestions = result;
+
+            
+            result = 0;
+
+            foreach (var question in Questions)
+            {
+                if (question.Answer.State != FlexyDomain.Models.AnswerState.NotAnswered)
+                    result++;
+                result += question.Children.Count(x => x.Answer.State != FlexyDomain.Models.AnswerState.NotAnswered);
+            }
+            QuestionsAnswered = result;
+
+            result = 0;
+
+            result = (int)Math.Round((double)(100 * QuestionsAnswered) / NumberOfQuestions);
+
+            CalculatedPercentage = result;
+
         }
 
         public void OnPropertyChanged(string name)

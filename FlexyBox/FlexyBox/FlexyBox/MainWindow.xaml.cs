@@ -197,13 +197,19 @@ namespace FlexyBox
                 foreach (var question in group.Questions)
                 {
                     foreach (var child in question.Children)
+                    {
                         child.Answer = answers.Single(x => x.Entity.QuestionId == child.Id);
-                    //question.Answer = InsertAnswers(question, answers);
+                        child.Answer.Question = child;
+                        child.Group = group;
+                    }
 
 
                     var answer = answers.Single(x => x.Entity.QuestionId == question.Id);
+                    answer.Question = question;
                     question.Answer = answer;
+                    question.Group = group;
                 }
+                group.Update();
             }
 
             Model.CustomerViewModel = customer;
@@ -272,7 +278,7 @@ namespace FlexyBox
 
                 };
                 //lav en view model til det nye aktive svar
-                answer = new StepAnswerViewModel() { Entity = newAnswer, Comment = answer.Comment };
+                answer = new StepAnswerViewModel() { Entity = newAnswer, Comment = answer.Comment, Question = questionVm };
                 //sæt det nye svars view model til spørgsmålets svar property
                 questionVm.Answer = answer;
 
@@ -301,6 +307,7 @@ namespace FlexyBox
                         answer.State = AnswerState.Done;
                 }
 
+                questionVm.Group.Update();
 
                 using (var ctx = new FlexyboxContext())
                 {

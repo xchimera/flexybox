@@ -15,6 +15,8 @@ namespace FlexyBox.ViewModel
 
         public StepAnswer Entity { get; set; }
 
+        public StepQuestionViewModel Question { get; set; }
+
         public string Comment { get; set; }
         public FlexyDomain.Models.AnswerState State
         {
